@@ -256,7 +256,7 @@ The API seems easier to understand. We declare a `cmd` that will hold the parame
 results into the corresponding variables. Also catching any error with exceptions.
 
 In fact, the next lines are doing the same as the previous `switch` in getopt:
-```
+```c++
 	std::string name = nameArg.getValue();
 	bool reverseName = reverseSwitch.getValue();
 ```
@@ -468,7 +468,7 @@ The `operator()` asks only for `char*` and not `std::string`, so if you need to 
 for the parameter names or the description, you will have to use either char arrays or lots of
 `.c_str()`. This is how it might look.
 
-```
+```c++
 desc.add_options()
         ((names[DURATION] + ",d").c_str(),
                 po::value<double>(&duration)->default_value(defaultDuration),
