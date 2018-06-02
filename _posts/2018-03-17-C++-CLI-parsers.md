@@ -385,7 +385,7 @@ int main(int ac, char* av[])
 
 ### Terse parameter configuration
 
-Here we can see basic configuration in action, working with sensible defaults. i
+Here we can see basic configuration in action, working with sensible defaults.
 
 If we want to make a parameter required, we can add it `po::value<double>()->required()`.
 
