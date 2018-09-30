@@ -11,6 +11,7 @@
       {% endfor %} 
       ]
       {{ post.excerpt }}
+      <h4><a href="{{ post.url }}">Read more</a></h4>
     </li>
     <hr>
     <hr>
