@@ -3,7 +3,7 @@ tags: programming
 ---
 
 # Epistomata
-### Epistemic automata
+#### Epistemic automata
 
 Epistomata is an experiment to put symbolic AIs in a graphicless RPG-like
 environment, so that they can share knowledge and make plans.
