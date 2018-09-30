@@ -1,11 +1,9 @@
----
-layout: default
----
+<!-- This is the landing page for https://jmmut.github.io -->
 
-<h3>Posts with tag [{{ page.tag }}]:</h3>
+### Posts:
 
 <ul>
-  {% for post in site.tags[page.tag] %}
+  {% for post in site.posts %}
     <li>
       {{ post.date | date: "%Y-%m-%d" }} 
       <a href="{{ post.url }}"> {{ post.title }}</a> 
@@ -14,7 +12,7 @@ layout: default
         <a href="/tag/{{ tag }}.html">{{tag}}</a> 
       {% endfor %} 
       ]
-      {{ post.excerpt }}
     </li>
   {% endfor %}
 </ul>
+

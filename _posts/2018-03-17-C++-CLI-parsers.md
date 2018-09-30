@@ -1,5 +1,6 @@
 ---
 tags: programming
+excerpt_separator: <!--more-->
 ---
 
 # Comparison of C++ Command Line Interface (CLI) parsers
@@ -9,6 +10,7 @@ built with the pain-hardened experience of failed attemps, right? As much as a C
 afraid that's not always (or not often?) the case.
 
 Here I'm going to summarize the good and bad design ideas of some CLI parsers I got my hands on.
+<!--more-->
 
 # Getopt
 

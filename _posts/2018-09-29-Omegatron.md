@@ -1,5 +1,6 @@
 ---
 tags: programming
+excerpt_separator: <!--more-->
 ---
 
 # Omegatron
@@ -19,6 +20,7 @@ the game evolved into a decently finished product, ported natively to Android
 using the Android NDK.
 
 [Repository here](https://bitbucket.org/mutcoll/omegatron/).
+<!--more-->
 
 ## Graphic engine
 

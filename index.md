@@ -1,11 +1,7 @@
----
-layout: default
----
-
-<h3>Posts with tag [{{ page.tag }}]:</h3>
+### Timeline:
 
 <ul>
-  {% for post in site.tags[page.tag] %}
+  {% for post in site.posts %}
     <li>
       {{ post.date | date: "%Y-%m-%d" }} 
       <a href="{{ post.url }}"> {{ post.title }}</a> 
@@ -16,5 +12,8 @@ layout: default
       ]
       {{ post.excerpt }}
     </li>
+    <hr>
+    <hr>
   {% endfor %}
 </ul>
+
