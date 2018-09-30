@@ -18,6 +18,8 @@ game engines based on OpenGL and GLUT, programed entirely from scratch. Later,
 the game evolved into a decently finished product, ported natively to Android
 using the Android NDK.
 
+[Repository here](https://bitbucket.org/mutcoll/omegatron/).
+
 ## Graphic engine
 
 All the graphic engine was build based directly on OpenGL 1. An ad-hoc graph
@@ -28,7 +30,8 @@ project.
 
 This engine was one of the most complex parts of the game. Detecting collisions
 in a reasonable amount of time was a challenge. A 3D hash map of voxels was used
-to register all the elements in the scene. 
+to register all the elements in the scene. This approach was 12x faster than
+brute force.
 
 In particular, a 3D bresenhan algorithm was developed to choose in which voxels
 should the trails be registered.
