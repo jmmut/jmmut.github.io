@@ -12,9 +12,9 @@ environment, so that they can share knowledge and make plans.
 The final goal is that an agent can pass the Sally-Ann test. This means
 that agent A understands that other agent B has a different set of knowledge
 than A has, and that A can predict what B will do according to B's knowledge.
-<!--more-->
 
 You can find the code in [bitbucket](https://bitbucket.org/mutcoll/epistomata)
+<!--more-->
 
 ## Environment design
 
