@@ -12,6 +12,8 @@ The final goal is that an agent can pass the Sally-Ann test. This means
 that agent A understands that other agent B has a different set of knowledge
 than A has, and that A can predict what B will do according to B's knowledge.
 
+You can find the code in [bitbucket](https://bitbucket.org/mutcoll/epistomata)
+
 ## Environment design
 
 The design is the simplest possible environment:
