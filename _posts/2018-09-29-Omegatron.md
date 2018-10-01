@@ -6,13 +6,14 @@ excerpt_separator: <!--more-->
 # Omegatron
 #### Tron motorcycle game tribute
 
+<div class="mydiv">
 <iframe
-width="560" height="315"
 src="https://www.youtube-nocookie.com/embed/7PVa1jbLogU?rel=0"
 frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
 allow="autoplay; encrypted-media"
 class="lazyload">
 </iframe>
+</div>
 
 This game was initially designed in 2013 as an exploratory project of low level
 game engines based on OpenGL and GLUT, programed entirely from scratch. Later,
