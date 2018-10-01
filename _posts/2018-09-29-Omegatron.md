@@ -52,6 +52,7 @@ touchscreen. Also, add a minimal GUI, as the configuration via CLI was not
 possible. Then, the OpenGL library had to be replaced with OpenGL ES, with a much
 lower level API. The main model, a scooter, was never ported.
 
-Finally, the game was published in the Google Play store. At the time of writing
-it is still available.
+Finally, the game was
+[published in the Google Play store](https://play.google.com/store/apps/details?id=com.packtpub.volador).
+At the time of writing it is still available.
 
