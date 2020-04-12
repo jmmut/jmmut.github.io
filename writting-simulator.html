@@ -32,10 +32,10 @@
   </canvas>
   <script>
     function main() {
-      var canvas = document.getElementById("myCanvas");
+      let canvas = document.getElementById("myCanvas");
       canvas.width = 640;
       canvas.height = 480;
-      var ctx = canvas.getContext("2d");
+      let ctx = canvas.getContext("2d");
       ctx.fillStyle = "#eeeeee";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#888888";
@@ -46,10 +46,9 @@
       let letterVertSpacing = letterHeight / 2.0;
       let letterHorSpacing = letterWidth / 2.0;
 
-      let moveToNewLine = bakeMoveToNewLine(horizontalMargin, letterHeight, letterVertSpacing);
-
       let posX = horizontalMargin;
       let posY = verticalMargin;
+      let moveToNewLine = bakeMoveToNewLine(horizontalMargin, letterHeight, letterVertSpacing);
 
       for (rectangleOrCircle of rectangleOrCircleGenerator()) {
         if (wouldWriteOutsideHorizontally(posX, canvas.width, letterWidth, horizontalMargin)) {
@@ -58,6 +57,7 @@
         if (wouldWriteOutsideVertically(posY, canvas.height, letterHeight, verticalMargin)) {
           break;
         }
+
         if (rectangleOrCircle) {
           posX = drawRectangle(ctx, posX, posY, letterWidth, letterHeight, letterHorSpacing);
         } else {
@@ -65,6 +65,7 @@
         }
       }
     }
+
     /**
      * ctx: obtain from var canvas = document.getElementById("myCanvas"); var ctx = canvas.getContext("2d");
      */
@@ -120,7 +121,7 @@
       console.log("Starting tests...");
       function assertEquals(name, actual, expected) {
         if (actual !== expected) {
-          let location = name;
+          let assertionLocation = name;
           if (!options.disableLineNumbers) {
             function getErrorObject() {
               try { throw Error('') } catch (err) { return err; }
@@ -128,9 +129,9 @@
             let err = getErrorObject();
             let callerLine = err.stack.split("\n")[2].split(":");
             let lineNumber = callerLine[callerLine.length - 2];
-            location += " at line " + lineNumber;
+            assertionLocation += " at line " + lineNumber;
           }
-          console.log("Failed test [" + location + "]: expected " + expected + " but got " + actual);
+          console.log("Failed test [" + assertionLocation + "]: expected " + expected + " but got " + actual);
           failedAssertions++;
         }
       }
