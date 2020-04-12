@@ -27,14 +27,38 @@
 
 <body>
   <!-- size will be overwritten in the js side-->
-  <canvas id="myCanvas" width="1" height="1" style="border:1px solid #777777;">
+  <canvas id="mainCanvas" width="1" height="1" style="border:1px solid #777777;">
+    Your browser does not support the canvas element.
+  </canvas>
+  <canvas id="writingPage" width="1" height="1" style="visibility: hidden; border:1px solid #777777;">
     Your browser does not support the canvas element.
   </canvas>
   <script>
     function main() {
-      let canvas = document.getElementById("myCanvas");
-      canvas.width = 640;
-      canvas.height = 480;
+      let mainCanvas = document.getElementById("mainCanvas");
+      mainCanvas.width = 640;
+      mainCanvas.height = 480;
+      let pageWidth = 200;
+      let pageHeight = 200;
+
+      let pageCanvas = document.getElementById("writingPage");
+      let numberOfLetters = 0;
+      mainCanvas.addEventListener('click', function (event) {
+        let x = event.pageX - mainCanvas.offsetLeft;
+        let y = event.pageY - mainCanvas.offsetTop;
+        console.log("in click event. x: " + x + ", y: " + y);
+        drawPage(pageCanvas, pageWidth, pageHeight, ++numberOfLetters);
+        let ctx = mainCanvas.getContext("2d");
+        ctx.drawImage(pageCanvas, 100, 200, 100 + pageWidth, 200 + pageHeight);
+      }, false);
+      drawPage(pageCanvas, pageWidth, pageHeight);
+
+      let ctx = mainCanvas.getContext("2d");
+      ctx.drawImage(pageCanvas, 100, 200, 100 + pageWidth, 200 + pageHeight);
+    }
+    function drawPage(canvas, width, height, numberOfLetters = -1) {
+      canvas.width = width;
+      canvas.height = height;
       let ctx = canvas.getContext("2d");
       ctx.fillStyle = "#eeeeee";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -50,7 +74,7 @@
       let posY = verticalMargin;
       let moveToNewLine = bakeMoveToNewLine(horizontalMargin, letterHeight, letterVertSpacing);
 
-      for (rectangleOrCircle of rectangleOrCircleGenerator()) {
+      for (rectangleOrCircle of rectangleOrCircleGenerator(numberOfLetters)) {
         if (wouldWriteOutsideHorizontally(posX, canvas.width, letterWidth, horizontalMargin)) {
           [posX, posY] = moveToNewLine(posX, posY);
         }
@@ -67,7 +91,8 @@
     }
 
     /**
-     * ctx: obtain from `let canvas = document.getElementById("myCanvas"); let ctx = canvas.getContext("2d");`
+     * ctx: obtain from 
+     * `let canvas = document.getElementById("myCanvas"); let ctx = canvas.getContext("2d");`
      */
     function drawRectangle(ctx, posX, posY, width, height, horizontalSpacing) {
       ctx.fillRect(posX, posY, width, height);
@@ -76,7 +101,8 @@
     }
 
     /**
-     * ctx: obtain from `let canvas = document.getElementById("myCanvas"); let ctx = canvas.getContext("2d");`
+     * ctx: obtain from 
+     * `let canvas = document.getElementById("myCanvas"); let ctx = canvas.getContext("2d");`
      * posX, posY: coordinates of the top left corner of a square circumscribing the circle.
      */
     function drawCircle(ctx, posX, posY, radius, horizontalSpacing) {
@@ -88,7 +114,7 @@
     }
 
     /**
-     * Note this returns an array to be able to use destructuring assignment:
+     * Note the inner function returns an array to be able to use destructuring assignment:
      * `[posX, posY] = moveToNewLine(posX, posY);`
      */
     function bakeMoveToNewLine(horizontalMargin, letterHeight, letterVertSpacing) {
@@ -123,15 +149,17 @@
         if (actual !== expected) {
           let assertionLocation = name;
           if (!options.disableLineNumbers) {
-            function getErrorObject() {
-              try { throw Error('') } catch (err) { return err; }
+            function getCallerLineNumber() {
+              try { throw Error('') } catch (err) {
+                let callerLine = err.stack.split("\n")[2].split(":");
+                let lineNumber = callerLine[callerLine.length - 2];
+                return lineNumber;
+              }
             }
-            let err = getErrorObject();
-            let callerLine = err.stack.split("\n")[2].split(":");
-            let lineNumber = callerLine[callerLine.length - 2];
-            assertionLocation += " at line " + lineNumber;
+            assertionLocation += " at line " + getCallerLineNumber();
           }
-          console.log("Failed test [" + assertionLocation + "]: expected " + expected + " but got " + actual);
+          console.log("Failed test [" + assertionLocation + "]: expected " + expected
+            + " but got " + actual);
           failedAssertions++;
         }
       }
