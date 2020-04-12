@@ -1,76 +1,165 @@
 <!DOCTYPE HTML>
 <html lang="es">
+
 <head>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8">
-    <title>Writting simulator</title>
-<style>
-div, p, button {
-  font-size: 25px;
-  text-align: center;
-}
-div, p {
-  padding: 2% 10%;
-}
-body {
-  background-color: #bbbbbb;
-}
-</style>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8">
+  <title>Writting simulator</title>
+  <style>
+    div,
+    p,
+    button {
+      font-size: 25px;
+      text-align: center;
+    }
+
+    div,
+    p {
+      padding: 2% 10%;
+    }
+
+    body {
+      background-color: #bbbbbb;
+    }
+
+  </style>
 </head>
+
 <body>
   <!-- size will be overwritten in the js side-->
-  <canvas id="myCanvas" width="1" height="1"
-  style="border:1px solid #777777;">
-  Your browser does not support the canvas element.
+  <canvas id="myCanvas" width="1" height="1" style="border:1px solid #777777;">
+    Your browser does not support the canvas element.
   </canvas>
   <script>
-    var canvas = document.getElementById("myCanvas");
-    canvas.width = 640;
-    canvas.height = 480;
-    var ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#eeeeee";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#666666";
-    let verticalMargin = canvas.width/12.0;
-    let horizontalMargin = canvas.height/12.0;
-    let letterWidth = horizontalMargin*3;
-    let letterHeight = letterWidth/1.618;
-    let letterVertSpacing = verticalMargin/2.0;
-    let letterHorSpacing = horizontalMargin;
+    function main() {
+      var canvas = document.getElementById("myCanvas");
+      canvas.width = 640;
+      canvas.height = 480;
+      var ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#eeeeee";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#888888";
+      let verticalMargin = canvas.width / 12.0;
+      let horizontalMargin = canvas.height / 12.0;
+      let letterWidth = horizontalMargin * 2;
+      let letterHeight = letterWidth / 1.618;
+      let letterVertSpacing = letterHeight / 2.0;
+      let letterHorSpacing = letterWidth / 2.0;
 
-    let posX = horizontalMargin;
-    let posY = verticalMargin;
-    ctx.fillRect(posX, posY, letterWidth, letterHeight);
-    posX += letterWidth + letterHorSpacing;
-    ctx.fillRect(posX, posY, letterWidth, letterHeight);
-    posX += letterWidth + letterHorSpacing;
-    ctx.fillRect(posX, posY, letterWidth, letterHeight);
-    
-    posX = horizontalMargin;
-    posY += letterHeight + letterVertSpacing;
-    ctx.fillRect(posX, posY, letterWidth, letterHeight);
-    posX += letterWidth + letterHorSpacing;
-    ctx.beginPath();
-    ctx.arc(posX + letterHeight/2.0, posY + letterHeight/2.0, letterHeight/2.0, 0, 2 * Math.PI);
-    ctx.fill();
-    posX += letterHeight + letterHorSpacing;
-    ctx.fillRect(posX, posY, letterWidth, letterHeight);
+      let moveToNewLine = bakeMoveToNewLine(horizontalMargin, letterHeight, letterVertSpacing);
 
-    posX = horizontalMargin;
-    posY += letterHeight + letterVertSpacing;
-    ctx.beginPath();
-    ctx.arc(posX + letterHeight/2.0, posY + letterHeight/2.0, letterHeight/2.0, 0, 2 * Math.PI);
-    ctx.fill();
-    posX += letterHeight + letterHorSpacing;
-    ctx.beginPath();
-    ctx.arc(posX + letterHeight/2.0, posY + letterHeight/2.0, letterHeight/2.0, 0, 2 * Math.PI);
-    ctx.fill();
-    posX += letterHeight + letterHorSpacing;
-    ctx.fillRect(posX, posY, letterWidth, letterHeight);
-    posX += letterWidth + letterHorSpacing;
-    ctx.beginPath();
-    ctx.arc(posX + letterHeight/2.0, posY + letterHeight/2.0, letterHeight/2.0, 0, 2 * Math.PI);
-    ctx.fill();
+      let posX = horizontalMargin;
+      let posY = verticalMargin;
 
+      for (rectangleOrCircle of rectangleOrCircleGenerator()) {
+        if (wouldWriteOutsideHorizontally(posX, canvas.width, letterWidth, horizontalMargin)) {
+          [posX, posY] = moveToNewLine(posX, posY);
+        }
+        if (wouldWriteOutsideVertically(posY, canvas.height, letterHeight, verticalMargin)) {
+          break;
+        }
+        if (rectangleOrCircle) {
+          posX = drawRectangle(ctx, posX, posY, letterWidth, letterHeight, letterHorSpacing);
+        } else {
+          posX = drawCircle(ctx, posX, posY, letterHeight / 2.0, letterHorSpacing);
+        }
+      }
+    }
+    /**
+     * ctx: obtain from var canvas = document.getElementById("myCanvas"); var ctx = canvas.getContext("2d");
+     */
+    function drawRectangle(ctx, posX, posY, width, height, horizontalSpacing) {
+      ctx.fillRect(posX, posY, width, height);
+      posX += width + horizontalSpacing;
+      return posX;
+    }
+
+    /**
+     * ctx: obtain from `var canvas = document.getElementById("myCanvas"); var ctx = canvas.getContext("2d");`
+     * posX, posY: coordinates of the top left corner of a square circumscribing the circle.
+     */
+    function drawCircle(ctx, posX, posY, radius, horizontalSpacing) {
+      ctx.beginPath();
+      ctx.arc(posX + radius, posY + radius, radius, 0, 2 * Math.PI);
+      ctx.fill();
+      posX += radius * 2 + horizontalSpacing;
+      return posX;
+    }
+
+    /**
+     * Note this returns an array to be able to use destructuring assignment:
+     * `[posX, posY] = moveToNewLine(posX, posY);`
+     */
+    function bakeMoveToNewLine(horizontalMargin, letterHeight, letterVertSpacing) {
+      return (posX, posY) => {
+        return [horizontalMargin, posY + letterHeight + letterVertSpacing];
+      }
+    }
+
+    /**
+     * Note that with arguments this will give an infinite sequence.
+     * User code is expected to break the loop or provide a finite count.
+     */
+    function* rectangleOrCircleGenerator(count = -1) {
+      let i = 0;
+      while (i != count) {
+        yield Math.random() < 0.5;
+        i++;
+      }
+    }
+
+    function wouldWriteOutsideVertically(posY, canvasHeight, letterHeight, bottomMargin) {
+      return (posY + letterHeight + bottomMargin) > canvasHeight;
+    }
+    function wouldWriteOutsideHorizontally(posX, canvasWidth, letterWidth, rightMargin) {
+      return (posX + letterWidth + rightMargin) > canvasWidth;
+    }
+
+    function test(options = {}) {
+      let failedAssertions = 0;
+      console.log("Starting tests...");
+      function assertEquals(name, actual, expected) {
+        if (actual !== expected) {
+          let location = name;
+          if (!options.disableLineNumbers) {
+            function getErrorObject() {
+              try { throw Error('') } catch (err) { return err; }
+            }
+            let err = getErrorObject();
+            let callerLine = err.stack.split("\n")[2].split(":");
+            let lineNumber = callerLine[callerLine.length - 2];
+            location += " at line " + lineNumber;
+          }
+          console.log("Failed test [" + location + "]: expected " + expected + " but got " + actual);
+          failedAssertions++;
+        }
+      }
+
+      {
+        let shapes = 0;
+        let expectedShapes = 3;
+        for (rectangleOrCircle of rectangleOrCircleGenerator(expectedShapes)) {
+          shapes++;
+        }
+        assertEquals("limited rectangleOrCircleGenerator", shapes, expectedShapes);
+      }
+
+      {
+        let shapes = 0;
+        let expectedShapes = 3;
+        for (rectangleOrCircle of rectangleOrCircleGenerator()) {
+          shapes++;
+          if (shapes >= expectedShapes) {
+            break;
+          }
+        }
+        assertEquals("infinite rectangleOrCircleGenerator", shapes, expectedShapes);
+      }
+
+      console.log("Finished tests. Number of failed assertions: " + failedAssertions);
+    }
+
+    test();
+    main();
   </script>
 </body>
