@@ -67,7 +67,7 @@
     }
 
     /**
-     * ctx: obtain from var canvas = document.getElementById("myCanvas"); var ctx = canvas.getContext("2d");
+     * ctx: obtain from `let canvas = document.getElementById("myCanvas"); let ctx = canvas.getContext("2d");`
      */
     function drawRectangle(ctx, posX, posY, width, height, horizontalSpacing) {
       ctx.fillRect(posX, posY, width, height);
@@ -76,7 +76,7 @@
     }
 
     /**
-     * ctx: obtain from `var canvas = document.getElementById("myCanvas"); var ctx = canvas.getContext("2d");`
+     * ctx: obtain from `let canvas = document.getElementById("myCanvas"); let ctx = canvas.getContext("2d");`
      * posX, posY: coordinates of the top left corner of a square circumscribing the circle.
      */
     function drawCircle(ctx, posX, posY, radius, horizontalSpacing) {
@@ -98,7 +98,7 @@
     }
 
     /**
-     * Note that with arguments this will give an infinite sequence.
+     * Note that without arguments this will give an infinite sequence.
      * User code is expected to break the loop or provide a finite count.
      */
     function* rectangleOrCircleGenerator(count = -1) {
