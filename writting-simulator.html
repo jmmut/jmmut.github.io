@@ -12,10 +12,65 @@ div, p, button {
 div, p {
   padding: 2% 10%;
 }
+body {
+  background-color: #bbbbbb;
+}
 </style>
 </head>
 <body>
-    Hello angel!
-    <script>
-    </script>
+  <!-- size will be overwritten in the js side-->
+  <canvas id="myCanvas" width="1" height="1"
+  style="border:1px solid #777777;">
+  Your browser does not support the canvas element.
+  </canvas>
+  <script>
+    var canvas = document.getElementById("myCanvas");
+    canvas.width = 640;
+    canvas.height = 480;
+    var ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#eeeeee";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#666666";
+    let verticalMargin = canvas.width/12.0;
+    let horizontalMargin = canvas.height/12.0;
+    let letterWidth = horizontalMargin*3;
+    let letterHeight = letterWidth/1.618;
+    let letterVertSpacing = verticalMargin/2.0;
+    let letterHorSpacing = horizontalMargin;
+
+    let posX = horizontalMargin;
+    let posY = verticalMargin;
+    ctx.fillRect(posX, posY, letterWidth, letterHeight);
+    posX += letterWidth + letterHorSpacing;
+    ctx.fillRect(posX, posY, letterWidth, letterHeight);
+    posX += letterWidth + letterHorSpacing;
+    ctx.fillRect(posX, posY, letterWidth, letterHeight);
+    
+    posX = horizontalMargin;
+    posY += letterHeight + letterVertSpacing;
+    ctx.fillRect(posX, posY, letterWidth, letterHeight);
+    posX += letterWidth + letterHorSpacing;
+    ctx.beginPath();
+    ctx.arc(posX + letterHeight/2.0, posY + letterHeight/2.0, letterHeight/2.0, 0, 2 * Math.PI);
+    ctx.fill();
+    posX += letterHeight + letterHorSpacing;
+    ctx.fillRect(posX, posY, letterWidth, letterHeight);
+
+    posX = horizontalMargin;
+    posY += letterHeight + letterVertSpacing;
+    ctx.beginPath();
+    ctx.arc(posX + letterHeight/2.0, posY + letterHeight/2.0, letterHeight/2.0, 0, 2 * Math.PI);
+    ctx.fill();
+    posX += letterHeight + letterHorSpacing;
+    ctx.beginPath();
+    ctx.arc(posX + letterHeight/2.0, posY + letterHeight/2.0, letterHeight/2.0, 0, 2 * Math.PI);
+    ctx.fill();
+    posX += letterHeight + letterHorSpacing;
+    ctx.fillRect(posX, posY, letterWidth, letterHeight);
+    posX += letterWidth + letterHorSpacing;
+    ctx.beginPath();
+    ctx.arc(posX + letterHeight/2.0, posY + letterHeight/2.0, letterHeight/2.0, 0, 2 * Math.PI);
+    ctx.fill();
+
+  </script>
 </body>
