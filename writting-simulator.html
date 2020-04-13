@@ -36,26 +36,29 @@
   <script>
     function main() {
       const mainCanvas = document.getElementById("mainCanvas");
-      mainCanvas.width = 640;
+      const mainCtx = mainCanvas.getContext("2d");
       mainCanvas.height = 480;
-      const pageWidth = 200;
-      const pageHeight = 200;
+      mainCanvas.width = mainCanvas.height * 16 / 9.0;  // panoramic 16:9
+      const pageHeight = mainCanvas.height * 3 / 4.0;
+      const pageWidth = pageHeight * 210 / 297.0; // paper proportions: A4
+      const pagePosY = mainCanvas.height / 8.0
+      const pagePosX = mainCanvas.width / 16.0;
 
       const pageCanvas = document.getElementById("writingPage");
       let numberOfLetters = 0;
+
       mainCanvas.addEventListener('click', function (event) {
         const x = event.pageX - mainCanvas.offsetLeft;
         const y = event.pageY - mainCanvas.offsetTop;
         console.log("in click event. x: " + x + ", y: " + y);
         drawPage(pageCanvas, pageWidth, pageHeight, ++numberOfLetters);
-        const ctx = mainCanvas.getContext("2d");
-        ctx.drawImage(pageCanvas, 100, 200, 100 + pageWidth, 200 + pageHeight);
+        mainCtx.drawImage(pageCanvas, pagePosX, pagePosY);
       }, false);
-      drawPage(pageCanvas, pageWidth, pageHeight);
 
-      const ctx = mainCanvas.getContext("2d");
-      ctx.drawImage(pageCanvas, 100, 200, 100 + pageWidth, 200 + pageHeight);
+      drawPage(pageCanvas, pageWidth, pageHeight, 0);
+      mainCtx.drawImage(pageCanvas, pagePosX, pagePosY);
     }
+
     function drawPage(canvas, width, height, numberOfLetters = -1) {
       canvas.width = width;
       canvas.height = height;
@@ -65,7 +68,7 @@
       ctx.fillStyle = "#888888";
       const verticalMargin = canvas.width / 12.0;
       const horizontalMargin = canvas.height / 12.0;
-      const letterWidth = horizontalMargin * 2;
+      const letterWidth = horizontalMargin * 1.25;
       const letterHeight = letterWidth / 1.618;
       const letterVertSpacing = letterHeight / 2.0;
       const letterHorSpacing = letterWidth / 2.0;
