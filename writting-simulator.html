@@ -34,32 +34,138 @@
     Your browser does not support the canvas element.
   </canvas>
   <script>
+    const elements = [
+      {
+        name: "shelf", room: "mainRoom", isRoom: false, size: {
+          posX: 1 / 16.0, posY: 1 / 8.0, width: 3 / 8.0, height: 3 / 8.0
+        }
+      },
+      {
+        name: "typewriter", room: "mainRoom", isRoom: false, size: {
+          posX: 3 / 8.0, posY: 0.5, width: 3 / 8.0, height: 3 / 8.0
+        }
+      },
+      {
+        name: "window", room: "mainRoom", isRoom: true, size: {
+          posX: 0.5, posY: 1 / 16.0, width: 3 / 8.0, height: 3 / 8.0
+        }
+      },
+      {
+        name: "trees", room: "window", isRoom: false, size: {
+          posX: 5 / 8.0, posY: 0.125, width: 3 / 8.0, height: 0.5
+        }
+      },
+      {
+        name: "mainRoom", room: "window", isRoom: true, size: {
+          posX: 0.25, posY: 7/8.0, width: 0.5, height: 1/8.0
+        }
+      }
+    ];
+    const ui = { posX: 25 / 32.0, posY: 0.75, width: 1 / 8.0, height: 1/16.0 };
+    function getButtonSize(button, canvasSize) {
+      return {
+        posX: canvasSize.width * button.posX, posY: canvasSize.height * button.posY,
+        width: canvasSize.width * button.width, height: canvasSize.height * button.height
+      };
+    }
+    const mainCanvas = document.getElementById("mainCanvas");
+    const mainCtx = mainCanvas.getContext("2d");
+    mainCanvas.height = 480;
+    mainCanvas.width = mainCanvas.height * 16 / 9.0;  // panoramic 16:9
+    const pageHeight = mainCanvas.height * 3 / 4.0
+    const pageSize = {
+      height: pageHeight,
+      width: pageHeight * 210 / 297.0, // paper proportions: A4
+      posY: mainCanvas.height / 8.0,
+      posX: mainCanvas.width / 16.0,
+    };
+    const pageCanvas = document.getElementById("writingPage");
+
     function main() {
-      const mainCanvas = document.getElementById("mainCanvas");
-      const mainCtx = mainCanvas.getContext("2d");
-      mainCanvas.height = 480;
-      mainCanvas.width = mainCanvas.height * 16 / 9.0;  // panoramic 16:9
-      const pageHeight = mainCanvas.height * 3 / 4.0;
-      const pageWidth = pageHeight * 210 / 297.0; // paper proportions: A4
-      const pagePosY = mainCanvas.height / 8.0
-      const pagePosX = mainCanvas.width / 16.0;
+      const gameState = {
+        room: "mainRoom", writing: false, inspiration: 0.5, progress: 0.0, pages: 0, numberOfLetters: 0
+      }
 
-      const pageCanvas = document.getElementById("writingPage");
-      let numberOfLetters = 0;
-
-      mainCanvas.addEventListener('click', function (event) {
+      mainCanvas.addEventListener('click', event => {
         const x = event.pageX - mainCanvas.offsetLeft;
         const y = event.pageY - mainCanvas.offsetTop;
         console.log("in click event. x: " + x + ", y: " + y);
-        drawPage(pageCanvas, pageWidth, pageHeight, ++numberOfLetters);
-        mainCtx.drawImage(pageCanvas, pagePosX, pagePosY);
+        mainCtx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+        handleClick(gameState, x, y);
+        drawRoom(gameState, mainCanvas);
+
+        if (gameState.writing) {
+          const pageComplete = drawPage(pageCanvas, pageSize, gameState.numberOfLetters);
+          mainCtx.drawImage(pageCanvas, pageSize.posX, pageSize.posY);
+          gameState.progress += pageComplete ? 1/16.0 : 0;
+          if (pageComplete) {
+            gameState.numberOfLetters = 0;
+            gameState.pages++;
+            console.log("page completed");
+          }
+        }
       }, false);
 
-      drawPage(pageCanvas, pageWidth, pageHeight, 0);
-      mainCtx.drawImage(pageCanvas, pagePosX, pagePosY);
+      drawRoom(gameState, mainCanvas);
+      //mainCtx.drawImage(pageCanvas, pageSize.posX, pageSize.posY);
     }
 
-    function drawPage(canvas, width, height, numberOfLetters = -1) {
+    function handleClick(gameState, clickX, clickY) {
+      if (gameState.writing) {
+        if (inside(clickX, clickY, pageSize)) {
+          if (gameState.inspiration > 0) {
+            console.log("adding words");
+            gameState.inspiration = Math.max(gameState.inspiration - 1/16.0, 0);
+            ++gameState.numberOfLetters;
+          }
+        } else {
+          gameState.writing = false;
+          console.log("stopped writing");
+        }
+      } else {
+        for (const button of elements) {
+          if (gameState.room === button.room) {
+            if (inside(clickX, clickY, getButtonSize(button.size, mainCanvas))) {
+              console.log("clicked on " + button.name);
+              if (button.name === "typewriter") {
+                console.log("starting writing");
+                gameState.writing = true;
+              } else if (button.isRoom) {
+                console.log("moving to room " + button.name);
+                gameState.room = button.name;
+              } else {
+                console.log("getting inspiration");
+                gameState.inspiration = Math.min(gameState.inspiration + 1/16.0, 1);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    function inside(pointX, pointY, { posX, posY, width, height }) {
+      return pointX >= posX && pointX <= (posX + width)
+        && pointY >= posY && pointY <= (posY + height);
+    }
+
+    function drawRoom(gameState, canvas) {
+      const ctx = canvas.getContext("2d");
+      for (const button of elements) {
+        if (gameState.room === button.room) {
+          const size = getButtonSize(button.size, canvas);
+          ctx.fillRect(size.posX, size.posY, size.width, size.height);
+        }
+      }
+      const uiPos = getButtonSize(ui, canvas);
+      ctx.font = "20px Georgia";
+      ctx.fillText("Inspiration: " + gameState.inspiration, uiPos.posX, uiPos.posY);
+
+      // TODO: how to do a newline in the drawn text??
+      ctx.fillText("Progress: " + gameState.progress, uiPos.posX, uiPos.posY + uiPos.height);
+      ctx.fillText("Pages: " + gameState.pages, uiPos.posX, uiPos.posY + 2* uiPos.height);
+    }
+
+    function drawPage(canvas, { width, height }, numberOfLetters = -1) {
       canvas.width = width;
       canvas.height = height;
       const ctx = canvas.getContext("2d");
@@ -77,11 +183,13 @@
       let posY = verticalMargin;
       const moveToNewLine = bakeMoveToNewLine(horizontalMargin, letterHeight, letterVertSpacing);
 
+      let pageComplete = false;
       for (rectangleOrCircle of rectangleOrCircleGenerator(numberOfLetters)) {
         if (wouldWriteOutsideHorizontally(posX, canvas.width, letterWidth, horizontalMargin)) {
           [posX, posY] = moveToNewLine(posX, posY);
         }
         if (wouldWriteOutsideVertically(posY, canvas.height, letterHeight, verticalMargin)) {
+          pageComplete = true;
           break;
         }
 
@@ -91,6 +199,7 @@
           posX = drawCircle(ctx, posX, posY, letterHeight / 2.0, letterHorSpacing);
         }
       }
+      return pageComplete;
     }
 
     /**
@@ -150,7 +259,7 @@
       console.log("Starting tests...");
       function assertEquals(name, actual, expected) {
         if (actual !== expected) {
-          const assertionLocation = name;
+          let assertionLocation = name;
           if (!options.disableLineNumbers) {
             function getCallerLineNumber() {
               try { throw Error('') } catch (err) {
@@ -188,6 +297,15 @@
         assertEquals("infinite rectangleOrCircleGenerator", shapes, expectedShapes);
       }
 
+      /* //this doesn't work:
+      {
+        const size = {
+          height: 1,
+          width: this.height * 2
+        };
+        assertEquals("refer to other fields during construction", size.width, size.height * 2);
+      }
+      */
       console.log("Finished tests. Number of failed assertions: " + failedAssertions);
     }
 
