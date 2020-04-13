@@ -57,11 +57,11 @@
       },
       {
         name: "mainRoom", room: "window", isRoom: true, size: {
-          posX: 0.25, posY: 7/8.0, width: 0.5, height: 1/8.0
+          posX: 0.25, posY: 7 / 8.0, width: 0.5, height: 1 / 8.0
         }
       }
     ];
-    const ui = { posX: 25 / 32.0, posY: 0.75, width: 1 / 8.0, height: 1/16.0 };
+    const ui = { posX: 25 / 32.0, posY: 0.75, width: 1 / 8.0, height: 1 / 16.0 };
     function getButtonSize(button, canvasSize) {
       return {
         posX: canvasSize.width * button.posX, posY: canvasSize.height * button.posY,
@@ -97,7 +97,7 @@
         if (gameState.writing) {
           const pageComplete = drawPage(pageCanvas, pageSize, gameState.numberOfLetters);
           mainCtx.drawImage(pageCanvas, pageSize.posX, pageSize.posY);
-          gameState.progress += pageComplete ? 1/16.0 : 0;
+          gameState.progress += pageComplete ? 1 / 16.0 : 0;
           if (pageComplete) {
             gameState.numberOfLetters = 0;
             gameState.pages++;
@@ -115,7 +115,7 @@
         if (inside(clickX, clickY, pageSize)) {
           if (gameState.inspiration > 0) {
             console.log("adding words");
-            gameState.inspiration = Math.max(gameState.inspiration - 1/16.0, 0);
+            gameState.inspiration = Math.max(gameState.inspiration - 1 / 16.0, 0);
             ++gameState.numberOfLetters;
           }
         } else {
@@ -135,7 +135,7 @@
                 gameState.room = button.name;
               } else {
                 console.log("getting inspiration");
-                gameState.inspiration = Math.min(gameState.inspiration + 1/16.0, 1);
+                gameState.inspiration = Math.min(gameState.inspiration + 1 / 16.0, 1);
               }
             }
           }
@@ -153,7 +153,9 @@
       for (const button of elements) {
         if (gameState.room === button.room) {
           const size = getButtonSize(button.size, canvas);
-          ctx.fillRect(size.posX, size.posY, size.width, size.height);
+          ctx.strokeRect(size.posX, size.posY, size.width, size.height);
+          ctx.font = "20px Georgia";
+          ctx.fillText(button.name, size.posX, size.posY + size.height/2.0);
         }
       }
       const uiPos = getButtonSize(ui, canvas);
@@ -162,7 +164,7 @@
 
       // TODO: how to do a newline in the drawn text??
       ctx.fillText("Progress: " + gameState.progress, uiPos.posX, uiPos.posY + uiPos.height);
-      ctx.fillText("Pages: " + gameState.pages, uiPos.posX, uiPos.posY + 2* uiPos.height);
+      ctx.fillText("Pages: " + gameState.pages, uiPos.posX, uiPos.posY + 2 * uiPos.height);
     }
 
     function drawPage(canvas, { width, height }, numberOfLetters = -1) {
