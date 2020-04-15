@@ -34,6 +34,8 @@
     Your browser does not support the canvas element.
   </canvas>
   <script>
+    // these global variables shouldn't change, and as they are actually constants, 
+    // that's my excuse to not pass them explicitly to most of the functions.
     const elements = [
       {
         name: "shelf", room: "mainRoom", isRoom: false, size: {
@@ -62,6 +64,10 @@
       }
     ];
     const ui = { posX: 25 / 32.0, posY: 0.75, width: 1 / 8.0, height: 1 / 16.0 };
+
+    /**
+     * The sizes above are coefficients in [0, 1], so this helper multiplies by the actual size in pixels
+     */
     function getButtonSize(button, canvasSize) {
       return {
         posX: canvasSize.width * button.posX, posY: canvasSize.height * button.posY,
@@ -82,6 +88,7 @@
     const pageCanvas = document.getElementById("writingPage");
 
     function main() {
+      // the game state will change, so this shouldn't be declared as global
       const gameState = {
         room: "mainRoom", writing: false, inspiration: 0.5, progress: 0.0, pages: 0, numberOfLetters: 0
       }
@@ -90,8 +97,9 @@
         const x = event.pageX - mainCanvas.offsetLeft;
         const y = event.pageY - mainCanvas.offsetTop;
         console.log("in click event. x: " + x + ", y: " + y);
+
         mainCtx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
-        handleClick(gameState, x, y);
+        updateGameStateFromClick(gameState, x, y);
         drawRoom(gameState, mainCanvas);
 
         if (gameState.writing) {
@@ -107,12 +115,14 @@
       }, false);
 
       drawRoom(gameState, mainCanvas);
-      //mainCtx.drawImage(pageCanvas, pageSize.posX, pageSize.posY);
     }
 
-    function handleClick(gameState, clickX, clickY) {
+    /**
+     * this function only changes game state, doesn't draw anything
+     */
+    function updateGameStateFromClick(gameState, clickX, clickY) {
       if (gameState.writing) {
-        if (inside(clickX, clickY, pageSize)) {
+        if (isInside(clickX, clickY, pageSize)) {
           if (gameState.inspiration > 0) {
             console.log("adding words");
             gameState.inspiration = Math.max(gameState.inspiration - 1 / 16.0, 0);
@@ -125,7 +135,7 @@
       } else {
         for (const button of elements) {
           if (gameState.room === button.room) {
-            if (inside(clickX, clickY, getButtonSize(button.size, mainCanvas))) {
+            if (isInside(clickX, clickY, getButtonSize(button.size, mainCanvas))) {
               console.log("clicked on " + button.name);
               if (button.name === "typewriter") {
                 console.log("starting writing");
@@ -143,7 +153,7 @@
       }
     }
 
-    function inside(pointX, pointY, { posX, posY, width, height }) {
+    function isInside(pointX, pointY, { posX, posY, width, height }) {
       return pointX >= posX && pointX <= (posX + width)
         && pointY >= posY && pointY <= (posY + height);
     }
@@ -155,7 +165,7 @@
           const size = getButtonSize(button.size, canvas);
           ctx.strokeRect(size.posX, size.posY, size.width, size.height);
           ctx.font = "20px Georgia";
-          ctx.fillText(button.name, size.posX, size.posY + size.height/2.0);
+          ctx.fillText(button.name, size.posX, size.posY + size.height / 2.0);
         }
       }
       const uiPos = getButtonSize(ui, canvas);
@@ -167,6 +177,9 @@
       ctx.fillText("Pages: " + gameState.pages, uiPos.posX, uiPos.posY + 2 * uiPos.height);
     }
 
+    /**
+     * returns true if the page was completed, false otherwise
+     */
     function drawPage(canvas, { width, height }, numberOfLetters = -1) {
       canvas.width = width;
       canvas.height = height;
@@ -257,9 +270,11 @@
     }
 
     function test(options = {}) {
-      const failedAssertions = 0;
+      let failedAssertions = 0;
+      let totalAssertions = 0;
       console.log("Starting tests...");
       function assertEquals(name, actual, expected) {
+        totalAssertions++;
         if (actual !== expected) {
           let assertionLocation = name;
           if (!options.disableLineNumbers) {
@@ -308,7 +323,14 @@
         assertEquals("refer to other fields during construction", size.width, size.height * 2);
       }
       */
-      console.log("Finished tests. Number of failed assertions: " + failedAssertions);
+     {
+       assertEquals("isInside", isInside(10, 20, {posX: 0, posY: 0, width: 50, height: 50}), true);
+       assertEquals("isInside", isInside(10, 20, {posX: 10, posY: 0, width: 50, height: 50}), true);
+       assertEquals("isInside", isInside(10, 20, {posX: 10, posY: 20, width: 50, height: 50}), true);
+       assertEquals("isInside", isInside(10, 20, {posX: 20, posY: 10, width: 50, height: 50}), false);
+       assertEquals("isInside", isInside(10, 20, {posX: 10, posY: 30, width: 50, height: 50}), false);
+     }
+      console.log("Finished tests. Number of failed assertions: " + failedAssertions + "/" + totalAssertions);
     }
 
     test();
