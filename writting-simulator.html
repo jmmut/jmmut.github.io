@@ -147,7 +147,8 @@
         const highlight_has_to_change = gameState.elementHighlighted !== newPointing;
         if (highlight_has_to_change) {
           const we_moved_out_of_an_element = gameState.elementHighlighted !== null;
-          const we_have_not_moved_to_another_room = gameState.room === gameState.elementHighlighted?.room;
+          const we_have_not_moved_to_another_room =
+            gameState.room === (gameState.elementHighlighted ? gameState.elementHighlighted.room : null);
 
           if (we_moved_out_of_an_element && we_have_not_moved_to_another_room) {
             console.log("moving out of " + gameState.elementHighlighted.name);
