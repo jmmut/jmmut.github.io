@@ -131,14 +131,19 @@
         const yCoef = (event.pageY - mainCanvas.offsetTop) / mainCanvas.height;
         //console.log("in click move event. xCoef: " + xCoef + ", yCoef: " + yCoef);
 
-        let newPointing = null;
-        for (const button of elements) {
-          if (gameState.room === button.room) {
-            if (isInside(xCoef, yCoef, button.size)) {
-              newPointing = button;
+        const newPointing = is_the_mouse_over_any_element();
+        function is_the_mouse_over_any_element() {
+          let anyPointing = null;
+          for (const button of elements) {
+            if (gameState.room === button.room) {
+              if (isInside(xCoef, yCoef, button.size)) {
+                anyPointing = button;
+              }
             }
           }
+          return anyPointing;
         }
+
         const highlight_has_to_change = gameState.elementHighlighted !== newPointing;
         if (highlight_has_to_change) {
           const we_moved_out_of_an_element = gameState.elementHighlighted !== null;
