@@ -87,34 +87,92 @@
     };
     const pageCanvas = document.getElementById("writingPage");
 
+
+    test();
+    main();
+
     function main() {
       // the game state will change, so this shouldn't be declared as global
       const gameState = {
-        room: "mainRoom", writing: false, inspiration: 0.5, progress: 0.0, pages: 0, numberOfLetters: 0
+        room: "mainRoom", elementHighlighted: null,
+        writing: false, inspiration: 0.5, progress: 0.0, pages: 0, numberOfLetters: 0
       }
 
-      mainCanvas.addEventListener('click', event => {
-        const x = event.pageX - mainCanvas.offsetLeft;
-        const y = event.pageY - mainCanvas.offsetTop;
-        console.log("in click event. x: " + x + ", y: " + y);
-
-        mainCtx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
-        updateGameStateFromClick(gameState, x, y);
-        drawRoom(gameState, mainCanvas);
-
-        if (gameState.writing) {
-          const pageComplete = drawPage(pageCanvas, pageSize, gameState.numberOfLetters);
-          mainCtx.drawImage(pageCanvas, pageSize.posX, pageSize.posY);
-          gameState.progress += pageComplete ? 1 / 16.0 : 0;
-          if (pageComplete) {
-            gameState.numberOfLetters = 0;
-            gameState.pages++;
-            console.log("page completed");
-          }
-        }
-      }, false);
+      mainCanvas.addEventListener('click', event => { onClick(event, gameState); });
+      mainCanvas.addEventListener('mousemove', event => { onMouseMove(event, gameState); });
 
       drawRoom(gameState, mainCanvas);
+    }
+
+    function onClick(event, gameState) {
+      const x = event.pageX - mainCanvas.offsetLeft;
+      const y = event.pageY - mainCanvas.offsetTop;
+      console.log("in click event. x: " + x + ", y: " + y);
+
+      mainCtx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+      updateGameStateFromClick(gameState, x, y);
+      drawRoom(gameState, mainCanvas);
+
+      if (gameState.writing) {
+        const pageComplete = drawPage(pageCanvas, pageSize, gameState.numberOfLetters);
+        mainCtx.drawImage(pageCanvas, pageSize.posX, pageSize.posY);
+        gameState.progress += pageComplete ? 1 / 16.0 : 0;
+        if (pageComplete) {
+          gameState.numberOfLetters = 0;
+          gameState.pages++;
+          console.log("page completed");
+        }
+      }
+    }
+
+    function onMouseMove(event, gameState) {
+      if (!gameState.writing) {
+        const xCoef = (event.pageX - mainCanvas.offsetLeft) / mainCanvas.width;
+        const yCoef = (event.pageY - mainCanvas.offsetTop) / mainCanvas.height;
+        //console.log("in click move event. xCoef: " + xCoef + ", yCoef: " + yCoef);
+
+        let newPointing = null;
+        for (const button of elements) {
+          if (gameState.room === button.room) {
+            if (isInside(xCoef, yCoef, button.size)) {
+              newPointing = button;
+            }
+          }
+        }
+        const highlight_has_to_change = gameState.elementHighlighted !== newPointing;
+        if (highlight_has_to_change) {
+          const we_moved_out_of_an_element = gameState.elementHighlighted !== null;
+          const we_have_not_moved_to_another_room = gameState.room === gameState.elementHighlighted?.room;
+
+          if (we_moved_out_of_an_element && we_have_not_moved_to_another_room) {
+            console.log("moving out of " + gameState.elementHighlighted.name);
+            unhighlightElement();
+            function unhighlightElement() {
+              const mainCtx = mainCanvas.getContext("2d");
+              const size = getButtonSize(gameState.elementHighlighted.size, mainCanvas);
+              mainCtx.fillStyle = "#bbbbbb";
+              mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
+              mainCtx.fillStyle = "#000000";
+              mainCtx.strokeRect(size.posX, size.posY, size.width, size.height);
+              mainCtx.font = "20px Georgia";
+              mainCtx.fillText(gameState.elementHighlighted.name, size.posX, size.posY + size.height / 2.0);
+            };
+          }
+
+          const we_moved_into_an_element = newPointing !== null;
+          if (we_moved_into_an_element) {
+            console.log("moving into " + newPointing.name);
+            hightlightElement();
+            function hightlightElement() {
+              const mainCtx = mainCanvas.getContext("2d");
+              const size = getButtonSize(newPointing.size, mainCanvas);
+              mainCtx.fillStyle = "rgba(40, 40, 200, 0.5)";
+              mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
+            }
+          }
+        }
+        gameState.elementHighlighted = newPointing;
+      }
     }
 
     /**
@@ -160,6 +218,7 @@
 
     function drawRoom(gameState, canvas) {
       const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#000000";
       for (const button of elements) {
         if (gameState.room === button.room) {
           const size = getButtonSize(button.size, canvas);
@@ -323,17 +382,14 @@
         assertEquals("refer to other fields during construction", size.width, size.height * 2);
       }
       */
-     {
-       assertEquals("isInside", isInside(10, 20, {posX: 0, posY: 0, width: 50, height: 50}), true);
-       assertEquals("isInside", isInside(10, 20, {posX: 10, posY: 0, width: 50, height: 50}), true);
-       assertEquals("isInside", isInside(10, 20, {posX: 10, posY: 20, width: 50, height: 50}), true);
-       assertEquals("isInside", isInside(10, 20, {posX: 20, posY: 10, width: 50, height: 50}), false);
-       assertEquals("isInside", isInside(10, 20, {posX: 10, posY: 30, width: 50, height: 50}), false);
-     }
+      {
+        assertEquals("isInside", isInside(10, 20, { posX: 0, posY: 0, width: 50, height: 50 }), true);
+        assertEquals("isInside", isInside(10, 20, { posX: 10, posY: 0, width: 50, height: 50 }), true);
+        assertEquals("isInside", isInside(10, 20, { posX: 10, posY: 20, width: 50, height: 50 }), true);
+        assertEquals("isInside", isInside(10, 20, { posX: 20, posY: 10, width: 50, height: 50 }), false);
+        assertEquals("isInside", isInside(10, 20, { posX: 10, posY: 30, width: 50, height: 50 }), false);
+      }
       console.log("Finished tests. Number of failed assertions: " + failedAssertions + "/" + totalAssertions);
     }
-
-    test();
-    main();
   </script>
 </body>
