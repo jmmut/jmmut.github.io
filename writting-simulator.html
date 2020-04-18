@@ -20,12 +20,18 @@
 
     body {
       background-color: #bbbbbb;
+      color: #000000;
     }
 
   </style>
 </head>
 
 <body>
+  <label for="language">Language:</label>
+  <select id="language" onchange="changeLanguage(this)">
+    <option value="spanish">Español</option>
+    <option value="english">English</option>
+  </select>
   <!-- size will be overwritten in the js side-->
   <canvas id="mainCanvas" width="1" height="1" style="border:1px solid #777777;">
     Your browser does not support the canvas element.
@@ -74,6 +80,22 @@
         width: canvasSize.width * button.width, height: canvasSize.height * button.height
       };
     }
+
+    const languages = {
+      available: {
+        english: {
+          inspiration: "Inspiration: ", progress: "Progress: ", pages: "Pages: ",
+          credits: "Credits", programming: "Programming: ", art: "Art: ", design: "Design: "
+        },
+        spanish: {
+          inspiration: "Inspiración: ", progress: "Progreso: ", pages: "Páginas: ",
+          credits: "Créditos", programming: "Programación: ", art: "Arte: ", design: "Diseño: "
+        }
+      }
+    };
+    languages.selected = languages.available.english;
+    let changeLanguage;
+
     const mainCanvas = document.getElementById("mainCanvas");
     const mainCtx = mainCanvas.getContext("2d");
     mainCanvas.height = 480;
@@ -100,7 +122,11 @@
 
       mainCanvas.addEventListener('click', event => { onClick(event, gameState); });
       mainCanvas.addEventListener('mousemove', event => { onMouseMove(event, gameState); });
-
+      changeLanguage = event => {
+        console.log("changing language to " + event.value);
+        languages.selected = languages.available[event.value];
+        drawRoom(gameState, mainCanvas);
+      };
       drawRoom(gameState, mainCanvas);
     }
 
@@ -109,7 +135,6 @@
       const y = event.pageY - mainCanvas.offsetTop;
       console.log("in click event. x: " + x + ", y: " + y);
 
-      mainCtx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
       updateGameStateFromClick(gameState, x, y);
       drawRoom(gameState, mainCanvas);
 
@@ -224,6 +249,7 @@
 
     function drawRoom(gameState, canvas) {
       const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#000000";
       for (const button of elements) {
         if (gameState.room === button.room) {
@@ -235,11 +261,11 @@
       }
       const uiPos = getButtonSize(ui, canvas);
       ctx.font = "20px Georgia";
-      ctx.fillText("Inspiration: " + gameState.inspiration, uiPos.posX, uiPos.posY);
+      ctx.fillText(languages.selected.inspiration + gameState.inspiration, uiPos.posX, uiPos.posY);
 
       // TODO: how to do a newline in the drawn text??
-      ctx.fillText("Progress: " + gameState.progress, uiPos.posX, uiPos.posY + uiPos.height);
-      ctx.fillText("Pages: " + gameState.pages, uiPos.posX, uiPos.posY + 2 * uiPos.height);
+      ctx.fillText(languages.selected.progress + gameState.progress, uiPos.posX, uiPos.posY + uiPos.height);
+      ctx.fillText(languages.selected.pages + gameState.pages, uiPos.posX, uiPos.posY + 2 * uiPos.height);
     }
 
     /**
