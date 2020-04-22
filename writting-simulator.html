@@ -256,6 +256,7 @@
           console.log("page completed");
         }
       }
+      onMouseMove(event, gameState);
     }
 
     function onMouseMove(event, gameState) {
@@ -295,6 +296,7 @@
               mainCtx.strokeRect(size.posX, size.posY, size.width, size.height);
               mainCtx.font = "20px Georgia";
               mainCtx.fillText(gameState.elementHighlighted.name, size.posX, size.posY + size.height / 2.0);
+              mainCanvas.style.cursor = "default";
             };
           }
 
@@ -307,6 +309,7 @@
               const size = getButtonSize(newPointing.size, mainCanvas);
               mainCtx.fillStyle = "rgba(40, 40, 200, 0.5)";
               mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
+              mainCanvas.style.cursor = "pointer";
             }
           }
         }
