@@ -164,32 +164,20 @@
       };
     }
 
+    function showView(viewToShow) {
+      const views = ["credits_div", "menu_div", "play_div"];
+      for (view of views) {
+        document.getElementById(view).style.display = view === viewToShow ? null : "none";
+      }
+    }
     function showCredits(event) {
-      const credits_div = document.getElementById("credits_div");
-      const menu_div = document.getElementById("menu_div");
-      const play_div = document.getElementById("play_div");
-
-      credits_div.style.display = null;
-      menu_div.style.display = "none";
-      play_div.style.display = "none";
+      showView("credits_div");
     }
     function showMainMenu(event) {
-      const credits_div = document.getElementById("credits_div");
-      const menu_div = document.getElementById("menu_div");
-      const play_div = document.getElementById("play_div");
-
-      credits_div.style.display = "none";
-      menu_div.style.display = null;
-      play_div.style.display = "none";
+      showView("menu_div");
     }
     function showPlay(event) {
-      const credits_div = document.getElementById("credits_div");
-      const menu_div = document.getElementById("menu_div");
-      const play_div = document.getElementById("play_div");
-
-      credits_div.style.display = "none";
-      menu_div.style.display = "none";
-      play_div.style.display = null;
+      showView("play_div");
     }
 
     const languages = {
