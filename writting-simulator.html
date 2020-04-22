@@ -13,30 +13,113 @@
       text-align: center;
     }
 
-    div,
-    p {
-      padding: 2% 10%;
-    }
-
     body {
       background-color: #bbbbbb;
       color: #000000;
     }
 
+    #credits_table {
+      border-collapse: inherit;
+      border-spacing: 0 30px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    tr {
+      vertical-align: top;
+    }
+
+    /* 
+    table {
+      padding: initial;
+      align-items: right;
+    }
+    */
+
+    /*
+    #options_div div {
+      display: inline;
+      margin: 0 1em 0 1em;
+      width: 30%;
+    }
+      */
+
+    /**/
+    /*
+    #language_div div {
+      text-align: left;
+      display: inline;
+      float: left;
+    }
+      */
+
+    /*
+    #credits_div div {
+      display: inline;
+      text-align: right;
+      float: right;
+    }
+      */
+
+    /**/
+
   </style>
 </head>
 
 <body>
-  <label for="language">Language:</label>
-  <select id="language" onchange="changeLanguage(this)">
-    <option value="spanish">Español</option>
-    <option value="english">English</option>
-  </select>
-  <!-- size will be overwritten in the js side-->
-  <canvas id="mainCanvas" width="1" height="1" style="border:1px solid #777777;">
-    Your browser does not support the canvas element.
-  </canvas>
-  <canvas id="writingPage" width="1" height="1" style="visibility: hidden; border:1px solid #777777;">
+  <div id="menu_div">
+    <div id="play_button_div" onclick="showPlay(this)">
+    </div>
+    <div id="language_div">
+      <label id="language_label" for="language">Language:</label>
+      <select id="language" onchange="changeLanguage(this)">
+        <option selected value="english">English</option>
+        <option value="spanish">Español</option>
+      </select>
+    </div>
+    <div id="credits_button_div" onclick="showCredits(this)">
+    </div>
+  </div>
+
+  <div id="credits_div" style="display: none;">
+    <div id="menu_button_div_from_credits" onclick="showMainMenu(this)">
+    </div>
+    <br>
+    <table id="credits_table">
+      <tr>
+        <td id="credits_programming">Programming:</td>
+        <td>jmmut</td>
+      </tr>
+      <br>
+      <tr>
+        <td id="credits_art">Art:</td>
+        <td>D. F. Marin</td>
+      </tr>
+      <tr>
+        <td id="credits_design">Design: </td>
+        <td>jmmut<br>D. F. Marin<br>hburriel</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="play_div" style="display: none;">
+    <div id="menu_button_div_from_play" onclick="showMainMenu(this)">
+    </div>
+    <!-- size will be overwritten in the js side-->
+    <canvas id="mainCanvas" width="10" height="10" style="border:1px solid #777777;">
+      Your browser does not support the canvas element.
+    </canvas>
+  </div>
+  </div>
+  <canvas id="writingPage" width="10" height="10" style="display: none; border:1px solid #777777;">
     Your browser does not support the canvas element.
   </canvas>
   <script>
@@ -81,19 +164,48 @@
       };
     }
 
+    function showCredits(event) {
+      const credits_div = document.getElementById("credits_div");
+      const menu_div = document.getElementById("menu_div");
+      const play_div = document.getElementById("play_div");
+
+      credits_div.style.display = null;
+      menu_div.style.display = "none";
+      play_div.style.display = "none";
+    }
+    function showMainMenu(event) {
+      const credits_div = document.getElementById("credits_div");
+      const menu_div = document.getElementById("menu_div");
+      const play_div = document.getElementById("play_div");
+
+      credits_div.style.display = "none";
+      menu_div.style.display = null;
+      play_div.style.display = "none";
+    }
+    function showPlay(event) {
+      const credits_div = document.getElementById("credits_div");
+      const menu_div = document.getElementById("menu_div");
+      const play_div = document.getElementById("play_div");
+
+      credits_div.style.display = "none";
+      menu_div.style.display = "none";
+      play_div.style.display = null;
+    }
+
     const languages = {
       available: {
         english: {
-          inspiration: "Inspiration: ", progress: "Progress: ", pages: "Pages: ",
-          credits: "Credits", programming: "Programming: ", art: "Art: ", design: "Design: "
+          language: "Language: ", inspiration: "Inspiration: ", progress: "Progress: ", pages: "Pages: ",
+          credits: "Credits", programming: "Programming: ", art: "Art: ", design: "Design: ",
+          play: "Play", menu: "Main menu"
         },
         spanish: {
-          inspiration: "Inspiración: ", progress: "Progreso: ", pages: "Páginas: ",
-          credits: "Créditos", programming: "Programación: ", art: "Arte: ", design: "Diseño: "
+          language: "Idioma: ", inspiration: "Inspiración: ", progress: "Progreso: ", pages: "Páginas: ",
+          credits: "Créditos", programming: "Programación: ", art: "Arte: ", design: "Diseño: ",
+          play: "Jugar", menu: "Menú principal"
         }
       }
     };
-    languages.selected = languages.available.english;
     let changeLanguage;
 
     const mainCanvas = document.getElementById("mainCanvas");
@@ -125,9 +237,17 @@
       changeLanguage = event => {
         console.log("changing language to " + event.value);
         languages.selected = languages.available[event.value];
+        document.getElementById("language_label").innerText = languages.selected.language;
+        document.getElementById("credits_button_div").innerText = languages.selected.credits;
+        document.getElementById("play_button_div").innerText = languages.selected.play;
+        document.getElementById("menu_button_div_from_play").innerText = languages.selected.menu;
+        document.getElementById("menu_button_div_from_credits").innerText = languages.selected.menu;
+        document.getElementById("credits_programming").innerText = languages.selected.programming;
+        document.getElementById("credits_art").innerText = languages.selected.art;
+        document.getElementById("credits_design").innerText = languages.selected.design;
         drawRoom(gameState, mainCanvas);
       };
-      drawRoom(gameState, mainCanvas);
+      changeLanguage({ value: "english" })
     }
 
     function onClick(event, gameState) {
