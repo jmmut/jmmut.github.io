@@ -122,6 +122,9 @@
   <canvas id="writingPage" width="10" height="10" style="display: none; border:1px solid #777777;">
     Your browser does not support the canvas element.
   </canvas>
+
+  <img id="img_typewriter" style="display: none;" width="853" height="480" src="assets/writ/typewriter_2020-04-27.jpg">
+
   <script>
     // these global variables shouldn't change, and as they are actually constants, 
     // that's my excuse to not pass them explicitly to most of the functions.
@@ -133,7 +136,7 @@
       },
       {
         name: "typewriter", room: "mainRoom", isRoom: false, size: {
-          posX: 3 / 8.0, posY: 0.5, width: 3 / 8.0, height: 3 / 8.0
+          posX: 3 / 8.0, posY: 0.5, width: 3 / 8.0, height: 4 / 8.0
         }
       },
       {
@@ -289,13 +292,15 @@
             unhighlightElement();
             function unhighlightElement() {
               const mainCtx = mainCanvas.getContext("2d");
-              const size = getButtonSize(gameState.elementHighlighted.size, mainCanvas);
-              mainCtx.fillStyle = "#bbbbbb";
-              mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
-              mainCtx.fillStyle = "#000000";
-              mainCtx.strokeRect(size.posX, size.posY, size.width, size.height);
-              mainCtx.font = "20px Georgia";
-              mainCtx.fillText(gameState.elementHighlighted.name, size.posX, size.posY + size.height / 2.0);
+              if (gameState.elementHighlighted.name !== "typewriter") {
+                const size = getButtonSize(gameState.elementHighlighted.size, mainCanvas);
+                mainCtx.fillStyle = "#bbbbbb";
+                mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
+                mainCtx.fillStyle = "#000000";
+                mainCtx.strokeRect(size.posX, size.posY, size.width, size.height);
+                mainCtx.font = "20px Georgia";
+                mainCtx.fillText(gameState.elementHighlighted.name, size.posX, size.posY + size.height / 2.0);
+              }
               mainCanvas.style.cursor = "default";
             };
           }
@@ -306,9 +311,11 @@
             hightlightElement();
             function hightlightElement() {
               const mainCtx = mainCanvas.getContext("2d");
-              const size = getButtonSize(newPointing.size, mainCanvas);
-              mainCtx.fillStyle = "rgba(40, 40, 200, 0.5)";
-              mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
+              if (newPointing.name !== "typewriter") {
+                const size = getButtonSize(newPointing.size, mainCanvas);
+                mainCtx.fillStyle = "rgba(40, 40, 200, 0.5)";
+                mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
+              }
               mainCanvas.style.cursor = "pointer";
             }
           }
@@ -362,12 +369,19 @@
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#000000";
+      if (gameState.room === "mainRoom") {
+        const img = document.getElementById("img_typewriter");
+        ctx.drawImage(img, 1, -1, canvas.width, canvas.height);
+      }
+
       for (const button of elements) {
         if (gameState.room === button.room) {
-          const size = getButtonSize(button.size, canvas);
-          ctx.strokeRect(size.posX, size.posY, size.width, size.height);
-          ctx.font = "20px Georgia";
-          ctx.fillText(button.name, size.posX, size.posY + size.height / 2.0);
+          if (button.name !== "typewriter") {
+            const size = getButtonSize(button.size, canvas);
+            ctx.strokeRect(size.posX, size.posY, size.width, size.height);
+            ctx.font = "20px Georgia";
+            ctx.fillText(button.name, size.posX, size.posY + size.height / 2.0);
+          }
         }
       }
       const uiPos = getButtonSize(ui, canvas);
