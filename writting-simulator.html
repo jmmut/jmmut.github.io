@@ -123,7 +123,14 @@
     Your browser does not support the canvas element.
   </canvas>
 
-  <img id="img_typewriter" style="display: none;" width="853" height="480" src="assets/writ/typewriter_2020-04-27.jpg">
+  <!-- <img id="img_typewriter" style="display: none;" width="853" height="480" src="assets/writ/graphics/img_typewriter_off.png"> -->
+  <img id="img_typewriter_off" style="display: none;" src="assets/writ/graphics/img_typewriter_off.png">
+  <img id="img_typewriter_on" style="display: none;" src="assets/writ/graphics/img_typewriter_on.png">
+  <img id="img_shelf_off" style="display: none;" src="assets/writ/graphics/img_shelf_off.jpg">
+  <img id="img_shelf_on" style="display: none;" src="assets/writ/graphics/img_shelf_on.jpg">
+  <img id="img_window_off" style="display: none;" src="assets/writ/graphics/img_window_off.jpg">
+  <img id="img_window_on" style="display: none;" src="assets/writ/graphics/img_window_on.jpg">
+
 
   <script>
     // these global variables shouldn't change, and as they are actually constants, 
@@ -132,7 +139,7 @@
       {
         name: "shelf", room: "mainRoom", isRoom: false, size: {
           posX: 1 / 16.0, posY: 1 / 8.0, width: 3 / 8.0, height: 3 / 8.0
-        }
+        }, imgSize: { posX: 0.0, posY: 0.0, width: 0.5, height: 1.0 }
       },
       {
         name: "typewriter", room: "mainRoom", isRoom: false, size: {
@@ -142,7 +149,7 @@
       {
         name: "window", room: "mainRoom", isRoom: true, size: {
           posX: 0.5, posY: 1 / 16.0, width: 3 / 8.0, height: 3 / 8.0
-        }
+        }, imgSize: { posX: 0.5, posY: 0.0, width: 0.5, height: 1.0 }
       },
       {
         name: "trees", room: "window", isRoom: false, size: {
@@ -371,8 +378,11 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#000000";
       if (gameState.room === "mainRoom") {
-        const img = document.getElementById("img_typewriter");
-        ctx.drawImage(img, 1, -1, canvas.width, canvas.height);
+        for (imgName of ["shelf", "window"]) {
+          const img = document.getElementById("img_" + imgName + "_on");
+          const imgSize = getButtonSize(elements.find(x => x.name === imgName).imgSize, canvas);
+          ctx.drawImage(img, imgSize.posX, imgSize.posY, imgSize.width, imgSize.height);
+        }
       }
 
       for (const button of elements) {
