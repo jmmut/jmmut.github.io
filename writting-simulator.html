@@ -68,21 +68,21 @@
 
 <body>
   <div id="menu_div">
-    <div id="play_button_div" onclick="showPlay(this)">
+    <div id="play_button_div">
     </div>
     <div id="language_div">
-      <label id="language_label" for="language">Language:</label>
-      <select id="language" onchange="changeLanguage(this)">
+      <label id="language_label" for="language"></label>
+      <select id="language">
         <option selected value="english">English</option>
         <option value="spanish">Español</option>
       </select>
     </div>
-    <div id="credits_button_div" onclick="showCredits(this)">
+    <div id="credits_button_div">
     </div>
   </div>
 
   <div id="credits_div" style="display: none;">
-    <div id="menu_button_div_from_credits" onclick="showMainMenu(this)">
+    <div id="menu_button_div_from_credits">
     </div>
     <br>
     <table id="credits_table">
@@ -111,13 +111,12 @@
   </div>
 
   <div id="play_div" style="display: none;">
-    <div id="menu_button_div_from_play" onclick="showMainMenu(this)">
+    <div id="menu_button_div_from_play">
     </div>
     <!-- size will be overwritten in the js side-->
     <canvas id="mainCanvas" width="10" height="10" style="border:1px solid #777777;">
       Your browser does not support the canvas element.
     </canvas>
-  </div>
   </div>
   <canvas id="writingPage" width="10" height="10" style="display: none; border:1px solid #777777;">
     Your browser does not support the canvas element.
@@ -135,34 +134,32 @@
   <script>
     // these global variables shouldn't change, and as they are actually constants, 
     // that's my excuse to not pass them explicitly to most of the functions.
-    const elements = [
+    const areas = [
       {
-        name: "shelf", room: "mainRoom", isRoom: false, size: {
-          posX: 1 / 16.0, posY: 1 / 8.0, width: 3 / 8.0, height: 3 / 8.0
-        }, imgSize: { posX: 0.0, posY: 0.0, width: 0.5, height: 1.0 }
+        name: "shelf", room: "mainRoom", isRoom: false, layer: 50
+        , size: { posX: 0.24, posY: 0.37, width: 0.087, height: 0.21 }
+        , imgSize: { posX: 0.0, posY: 0.0, width: 0.5, height: 1.0 }
       },
       {
-        name: "typewriter", room: "mainRoom", isRoom: false, size: {
-          posX: 3 / 8.0, posY: 0.5, width: 3 / 8.0, height: 4 / 8.0
-        }
+        name: "typewriter", room: "mainRoom", isRoom: false, layer: 30
+        , size: { posX: 0.31, posY: 5 / 8.0, width: 0.28, height: 5 / 8.0 }
+        , imgSize: {posX: 1 / 8.0, posY: 0.5, width: 5 / 8.0, height: 0.5 }
       },
       {
-        name: "window", room: "mainRoom", isRoom: true, size: {
-          posX: 0.5, posY: 1 / 16.0, width: 3 / 8.0, height: 3 / 8.0
-        }, imgSize: { posX: 0.5, posY: 0.0, width: 0.5, height: 1.0 }
+        name: "window", room: "mainRoom", isRoom: true, layer: 50
+        , size: { posX: 0.56, posY: 0, width: 0.38, height: 0.66 }
+        , imgSize: { posX: 0.5, posY: 0.0, width: 0.5, height: 1.0 }
       },
       {
-        name: "trees", room: "window", isRoom: false, size: {
-          posX: 5 / 8.0, posY: 0.125, width: 3 / 8.0, height: 0.5
-        }
+        name: "trees", room: "window", isRoom: false, layer: 50
+        , size: { posX: 5 / 8.0, posY: 0.125, width: 3 / 8.0, height: 0.5 }
       },
       {
-        name: "mainRoom", room: "window", isRoom: true, size: {
-          posX: 0.25, posY: 7 / 8.0, width: 0.5, height: 1 / 8.0
-        }
+        name: "mainRoom", room: "window", isRoom: true, layer: 30
+        , size: { posX: 0.25, posY: 7 / 8.0, width: 0.5, height: 1 / 8.0 }
       }
     ];
-    const ui = { posX: 25 / 32.0, posY: 0.75, width: 1 / 8.0, height: 1 / 16.0 };
+    const ui = { posX: 24 / 32.0, posY: 0.75, width: 1 / 8.0, height: 1 / 16.0 };
 
     /**
      * The sizes above are coefficients in [0, 1], so this helper multiplies by the actual size in pixels
@@ -174,6 +171,15 @@
       };
     }
 
+    function addListener(dom_id, event_type, callback) {
+      let elem = document.getElementById(dom_id)
+      elem.addEventListener(event_type, event => { callback(event); });
+    }
+    addListener("play_button_div", "click", showPlay);
+    addListener("credits_button_div", "click", showCredits);
+    addListener("menu_button_div_from_credits", "click", showMainMenu);
+    addListener("menu_button_div_from_play", "click", showMainMenu);
+    
     function showView(viewToShow) {
       const views = ["credits_div", "menu_div", "play_div"];
       for (view of views) {
@@ -188,6 +194,7 @@
     }
     function showPlay(event) {
       showView("play_div");
+      main();
     }
 
     const languages = {
@@ -204,7 +211,6 @@
         }
       }
     };
-    let changeLanguage;
 
     const mainCanvas = document.getElementById("mainCanvas");
     const mainCtx = mainCanvas.getContext("2d");
@@ -221,31 +227,33 @@
 
 
     test();
-    main();
+    // main();
+
+    function changeLanguage(event) {
+      console.log("changing language to " + event.target.value);
+      languages.selected = languages.available[event.target.value];
+      document.getElementById("language_label").innerText = languages.selected.language;
+      document.getElementById("credits_button_div").innerText = languages.selected.credits;
+      document.getElementById("play_button_div").innerText = languages.selected.play;
+      document.getElementById("menu_button_div_from_play").innerText = languages.selected.menu;
+      document.getElementById("menu_button_div_from_credits").innerText = languages.selected.menu;
+      document.getElementById("credits_programming").innerText = languages.selected.programming;
+      document.getElementById("credits_art").innerText = languages.selected.art;
+      document.getElementById("credits_design").innerText = languages.selected.design;
+    };
+    changeLanguage({ target: {value: "english" }})
+    addListener("language", "change", changeLanguage);
 
     function main() {
       // the game state will change, so this shouldn't be declared as global
       const gameState = {
-        room: "mainRoom", elementHighlighted: null,
+        room: "mainRoom", areaHighlighted: null,
         writing: false, inspiration: 0.5, progress: 0.0, pages: 0, numberOfLetters: 0
       }
-
       mainCanvas.addEventListener('click', event => { onClick(event, gameState); });
       mainCanvas.addEventListener('mousemove', event => { onMouseMove(event, gameState); });
-      changeLanguage = event => {
-        console.log("changing language to " + event.value);
-        languages.selected = languages.available[event.value];
-        document.getElementById("language_label").innerText = languages.selected.language;
-        document.getElementById("credits_button_div").innerText = languages.selected.credits;
-        document.getElementById("play_button_div").innerText = languages.selected.play;
-        document.getElementById("menu_button_div_from_play").innerText = languages.selected.menu;
-        document.getElementById("menu_button_div_from_credits").innerText = languages.selected.menu;
-        document.getElementById("credits_programming").innerText = languages.selected.programming;
-        document.getElementById("credits_art").innerText = languages.selected.art;
-        document.getElementById("credits_design").innerText = languages.selected.design;
-        drawRoom(gameState, mainCanvas);
-      };
-      changeLanguage({ value: "english" })
+
+      drawRoom(gameState, mainCanvas);
     }
 
     function onClick(event, gameState) {
@@ -278,7 +286,7 @@
         const newPointing = is_the_mouse_over_any_element();
         function is_the_mouse_over_any_element() {
           let anyPointing = null;
-          for (const button of elements) {
+          for (const button of areas) {
             if (gameState.room === button.room) {
               if (isInside(xCoef, yCoef, button.size)) {
                 anyPointing = button;
@@ -288,47 +296,66 @@
           return anyPointing;
         }
 
-        const highlight_has_to_change = gameState.elementHighlighted !== newPointing;
+        const highlight_has_to_change = gameState.areaHighlighted !== newPointing;
         if (highlight_has_to_change) {
-          const we_moved_out_of_an_element = gameState.elementHighlighted !== null;
+          const we_moved_out_of_an_element = gameState.areaHighlighted !== null;
           const we_have_not_moved_to_another_room =
-            gameState.room === (gameState.elementHighlighted ? gameState.elementHighlighted.room : null);
+            gameState.room === (gameState.areaHighlighted ? gameState.areaHighlighted.room : null);
 
           if (we_moved_out_of_an_element && we_have_not_moved_to_another_room) {
-            console.log("moving out of " + gameState.elementHighlighted.name);
-            unhighlightElement(gameState.elementHighlighted);
+            console.log("moving out of " + gameState.areaHighlighted.name);
+            // unhighlightElement(gameState.areaHighlighted);
           }
 
           const we_moved_into_an_element = newPointing !== null;
           if (we_moved_into_an_element) {
             console.log("moving into " + newPointing.name);
-            hightlightElement();
+            // hightlightElement();
             function hightlightElement() {
-              const mainCtx = mainCanvas.getContext("2d");
-              if (newPointing.name !== "typewriter") {
-                const size = getButtonSize(newPointing.size, mainCanvas);
-                mainCtx.fillStyle = "rgba(40, 40, 200, 0.5)";
-                mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
+              imgName = newPointing.name
+              const img = document.getElementById("img_" + imgName + "_on");
+              if (img === undefined) {
+                console.log("missing image for " + imgName);
+              } else {
+                const imgSize = getButtonSize(areas.find(x => x.name === imgName).imgSize, mainCanvas);
+                const mainCtx = mainCanvas.getContext("2d");
+                mainCtx.drawImage(img, imgSize.posX, imgSize.posY, imgSize.width, imgSize.height);
               }
+              // const mainCtx = mainCanvas.getContext("2d");
+              // if (newPointing.name !== "typewriter") {
+                // const size = getButtonSize(newPointing.size, mainCanvas);
+                // mainCtx.fillStyle = "rgba(40, 40, 200, 0.5)";
+                // mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
+              // }
               mainCanvas.style.cursor = "pointer";
             }
           }
         }
-        gameState.elementHighlighted = newPointing;
+        gameState.areaHighlighted = newPointing;
+        drawRoom(gameState, mainCanvas);
       }
     }
 
     function unhighlightElement(button) {
-      const mainCtx = mainCanvas.getContext("2d");
-      if (button.name !== "typewriter") {
-        const size = getButtonSize(button.size, mainCanvas);
-        mainCtx.fillStyle = "#bbbbbb";
-        mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
-        mainCtx.fillStyle = "#000000";
-        mainCtx.strokeRect(size.posX, size.posY, size.width, size.height);
-        mainCtx.font = "20px Georgia";
-        mainCtx.fillText(button.name, size.posX, size.posY + size.height / 2.0);
+      imgName = button.name
+      const img = document.getElementById("img_" + imgName + "_off");
+      if (img === undefined) {
+        console.log("missing image for " + imgName);
+      } else {
+        const imgSize = getButtonSize(areas.find(x => x.name === imgName).imgSize, mainCanvas);
+        const mainCtx = mainCanvas.getContext("2d");
+        mainCtx.drawImage(img, imgSize.posX, imgSize.posY, imgSize.width, imgSize.height);
       }
+      // const mainCtx = mainCanvas.getContext("2d");
+      // if (button.name !== "typewriter") {
+      //   const size = getButtonSize(button.size, mainCanvas);
+      //   mainCtx.fillStyle = "#bbbbbb";
+      //   mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
+      //   mainCtx.fillStyle = "#000000";
+      //   mainCtx.strokeRect(size.posX, size.posY, size.width, size.height);
+      //   mainCtx.font = "20px Georgia";
+      //   mainCtx.fillText(button.name, size.posX, size.posY + size.height / 2.0);
+      // }
       mainCanvas.style.cursor = "default";
     };
 
@@ -348,7 +375,7 @@
           console.log("stopped writing");
         }
       } else {
-        for (const button of elements) {
+        for (const button of areas) {
           if (gameState.room === button.room) {
             if (isInside(clickX, clickY, getButtonSize(button.size, mainCanvas))) {
               console.log("clicked on " + button.name);
@@ -373,31 +400,57 @@
         && pointY >= posY && pointY <= (posY + height);
     }
 
+    function compare(a, b) {
+      if (a < b) {
+        return -1;
+      } else {
+        if (a > b) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
+    }
+
     function drawRoom(gameState, canvas) {
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#000000";
-      if (gameState.room === "mainRoom") {
-        for (imgName of ["shelf", "window"]) {
-          const img = document.getElementById("img_" + imgName + "_on");
-          const imgSize = getButtonSize(elements.find(x => x.name === imgName).imgSize, canvas);
-          ctx.drawImage(img, imgSize.posX, imgSize.posY, imgSize.width, imgSize.height);
-        }
-      }
-
-      for (const button of elements) {
-        if (gameState.room === button.room) {
-          if (button.name !== "typewriter") {
-            unhighlightElement(button);
+      const sortedAreas = areas.sort((a, b) => compare(b.layer, a.layer));
+      for (const area of sortedAreas) {
+        if (area.room === gameState.room) {
+          const imgName = area.name;
+          const areaHighlighted = gameState.areaHighlighted? gameState.areaHighlighted : null;
+          const areaHighlightedName = areaHighlighted? areaHighlighted.name : null;
+          const img = document.getElementById("img_" + imgName + (area.name === areaHighlightedName? "_on" : "_off"));
+          if (img === undefined) {
+            console.log("missing image for " + imgName);
+          } else {
+            const imgSize = getButtonSize(areas.find(x => x.name === imgName).imgSize, canvas);
+            ctx.drawImage(img, imgSize.posX, imgSize.posY, imgSize.width, imgSize.height);
           }
         }
       }
+/*
+      for (const button of areas) {
+        if (gameState.room === button.room) {
+          // if (button.name !== "typewriter") {
+            unhighlightElement(button);
+          // }
+        }
+      }
+      */
+      if (gameState.writing) {
+        ctx.fillStyle = "#77777777"
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+      }
       const uiPos = getButtonSize(ui, canvas);
       ctx.font = "20px Georgia";
-      ctx.fillText(languages.selected.inspiration + gameState.inspiration, uiPos.posX, uiPos.posY);
+      ctx.fillStyle = "#000000";
+      ctx.fillText(languages.selected.inspiration + gameState.inspiration.toFixed(2), uiPos.posX, uiPos.posY);
 
       // TODO: how to do a newline in the drawn text??
-      ctx.fillText(languages.selected.progress + gameState.progress, uiPos.posX, uiPos.posY + uiPos.height);
+      ctx.fillText(languages.selected.progress + gameState.progress.toFixed(2), uiPos.posX, uiPos.posY + uiPos.height);
       ctx.fillText(languages.selected.pages + gameState.pages, uiPos.posX, uiPos.posY + 2 * uiPos.height);
     }
 
