@@ -137,7 +137,7 @@
   <script>
     // these global variables shouldn't change, and as they are actually constants, 
     // that's my excuse to not pass them explicitly to most of the functions.
-    const areas = [
+    const unsortedAreas = [
       {
         name: "shelf", room: "mainRoom", isRoom: false, layer: 50
         , size: { posX: 0.24, posY: 0.37, width: 0.087, height: 0.21 }
@@ -163,6 +163,19 @@
       }
     ];
     const ui = { posX: 24 / 32.0, posY: 0.75, width: 1 / 8.0, height: 1 / 16.0 };
+    const areas = unsortedAreas.sort((a, b) => compare(b.layer, a.layer));
+
+    function compare(a, b) {
+      if (a < b) {
+        return -1;
+      } else {
+        if (a > b) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
+    }
 
     /**
      * The sizes above are coefficients in [0, 1], so this helper multiplies by the actual size in pixels
@@ -326,8 +339,7 @@
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#000000";
-      const sortedAreas = areas.sort((a, b) => compare(b.layer, a.layer));
-      for (const area of sortedAreas) {
+      for (const area of areas) {
         if (area.room === gameState.room) {
           const imgName = area.name;
           const areaHighlighted = gameState.areaHighlighted? gameState.areaHighlighted : null;
@@ -369,18 +381,6 @@
       // TODO: how to do a newline in the drawn text??
       // ctx.fillText(languages.selected.progress + gameState.progress.toFixed(2), uiPos.posX, uiPos.posY + uiPos.height);
       ctx.fillText(languages.selected.pages + gameState.pages, uiPos.posX, uiPos.posY + 2 * uiPos.height);
-    }
-
-    function compare(a, b) {
-      if (a < b) {
-        return -1;
-      } else {
-        if (a > b) {
-          return 1;
-        } else {
-          return 0;
-        }
-      }
     }
 
     function onMouseMove(event, gameState) {
