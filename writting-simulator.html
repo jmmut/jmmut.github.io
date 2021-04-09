@@ -296,18 +296,19 @@
           console.log("stopped writing");
         }
       } else {
-        for (const button of areas) {
-          if (gameState.room === button.room) {
-            if (isInside(clickX, clickY, getButtonSize(button.size, mainCanvas))) {
-              console.log("clicked on " + button.name);
-              if (button.name === "typewriter") {
+        for (const area of areas) {
+          if (gameState.room === area.room) {
+            if (isInside(clickX, clickY, getButtonSize(area.size, mainCanvas))) {
+              console.log("clicked on " + area.name);
+              if (area.name === "typewriter") {
                 console.log("starting writing");
                 gameState.writing = true;
-              } else if (button.isRoom) {
-                console.log("moving to room " + button.name);
-                gameState.room = button.name;
+              } else if (area.isRoom) {
+                console.log("moving to room " + area.name);
+                gameState.room = area.name;
               } else {
                 console.log("getting inspiration");
+                // TODO: diminishing returns when spamming the same source of inspiration
                 gameState.inspiration = Math.min(gameState.inspiration + 1 / 16.0, 1);
               }
             }
@@ -332,12 +333,17 @@
           const areaHighlighted = gameState.areaHighlighted? gameState.areaHighlighted : null;
           const areaHighlightedName = areaHighlighted? areaHighlighted.name : null;
           const img = document.getElementById("img_" + imgName + (area.name === areaHighlightedName? "_on" : "_off"));
-          if (img === undefined) {
-            console.log("missing image for " + imgName);
+          if (img === undefined || area.imgSize === undefined) {
+            // console.log("missing image for " + imgName);
+            const size = getButtonSize(area.size, mainCanvas);
+            mainCtx.fillStyle = "#bbbbbb";
+            mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
             mainCtx.fillStyle = "#000000";
             mainCtx.strokeRect(size.posX, size.posY, size.width, size.height);
+            mainCtx.font = "20px Georgia";
+            mainCtx.fillText(area.name, size.posX, size.posY + size.height / 2.0);
           } else {
-            const imgSize = getButtonSize(areas.find(x => x.name === imgName).imgSize, canvas);
+            const imgSize = getButtonSize(area.imgSize, canvas);
             ctx.drawImage(img, imgSize.posX, imgSize.posY, imgSize.width, imgSize.height);
           }
         }
