@@ -280,6 +280,103 @@
       onMouseMove(event, gameState);
     }
 
+    /**
+     * this function only changes game state, doesn't draw anything
+     */
+    function updateGameStateFromClick(gameState, clickX, clickY) {
+      if (gameState.writing) {
+        if (isInside(clickX, clickY, pageSize)) {
+          if (gameState.inspiration > 0) {
+            console.log("adding words");
+            gameState.inspiration = Math.max(gameState.inspiration - 1 / 16.0, 0);
+            ++gameState.numberOfLetters;
+          }
+        } else {
+          gameState.writing = false;
+          console.log("stopped writing");
+        }
+      } else {
+        for (const button of areas) {
+          if (gameState.room === button.room) {
+            if (isInside(clickX, clickY, getButtonSize(button.size, mainCanvas))) {
+              console.log("clicked on " + button.name);
+              if (button.name === "typewriter") {
+                console.log("starting writing");
+                gameState.writing = true;
+              } else if (button.isRoom) {
+                console.log("moving to room " + button.name);
+                gameState.room = button.name;
+              } else {
+                console.log("getting inspiration");
+                gameState.inspiration = Math.min(gameState.inspiration + 1 / 16.0, 1);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    function isInside(pointX, pointY, { posX, posY, width, height }) {
+      return pointX >= posX && pointX <= (posX + width)
+        && pointY >= posY && pointY <= (posY + height);
+    }
+    
+    function drawRoom(gameState, canvas) {
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#000000";
+      const sortedAreas = areas.sort((a, b) => compare(b.layer, a.layer));
+      for (const area of sortedAreas) {
+        if (area.room === gameState.room) {
+          const imgName = area.name;
+          const areaHighlighted = gameState.areaHighlighted? gameState.areaHighlighted : null;
+          const areaHighlightedName = areaHighlighted? areaHighlighted.name : null;
+          const img = document.getElementById("img_" + imgName + (area.name === areaHighlightedName? "_on" : "_off"));
+          if (img === undefined) {
+            console.log("missing image for " + imgName);
+            mainCtx.fillStyle = "#000000";
+            mainCtx.strokeRect(size.posX, size.posY, size.width, size.height);
+          } else {
+            const imgSize = getButtonSize(areas.find(x => x.name === imgName).imgSize, canvas);
+            ctx.drawImage(img, imgSize.posX, imgSize.posY, imgSize.width, imgSize.height);
+          }
+        }
+      }
+/*
+      for (const button of areas) {
+        if (gameState.room === button.room) {
+          // if (button.name !== "typewriter") {
+            unhighlightElement(button);
+          // }
+        }
+      }
+      */
+      if (gameState.writing) {
+        ctx.fillStyle = "#77777777"
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+      }
+      const uiPos = getButtonSize(ui, canvas);
+      ctx.font = "20px Georgia";
+      ctx.fillStyle = "#000000";
+      ctx.fillText(languages.selected.inspiration + gameState.inspiration.toFixed(2), uiPos.posX, uiPos.posY);
+
+      // TODO: how to do a newline in the drawn text??
+      // ctx.fillText(languages.selected.progress + gameState.progress.toFixed(2), uiPos.posX, uiPos.posY + uiPos.height);
+      ctx.fillText(languages.selected.pages + gameState.pages, uiPos.posX, uiPos.posY + 2 * uiPos.height);
+    }
+
+    function compare(a, b) {
+      if (a < b) {
+        return -1;
+      } else {
+        if (a > b) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
+    }
+
     function onMouseMove(event, gameState) {
       if (!gameState.writing) {
         const xCoef = (event.pageX - mainCanvas.offsetLeft) / mainCanvas.width;
@@ -361,101 +458,6 @@
       // }
       mainCanvas.style.cursor = "default";
     };
-
-    /**
-     * this function only changes game state, doesn't draw anything
-     */
-    function updateGameStateFromClick(gameState, clickX, clickY) {
-      if (gameState.writing) {
-        if (isInside(clickX, clickY, pageSize)) {
-          if (gameState.inspiration > 0) {
-            console.log("adding words");
-            gameState.inspiration = Math.max(gameState.inspiration - 1 / 16.0, 0);
-            ++gameState.numberOfLetters;
-          }
-        } else {
-          gameState.writing = false;
-          console.log("stopped writing");
-        }
-      } else {
-        for (const button of areas) {
-          if (gameState.room === button.room) {
-            if (isInside(clickX, clickY, getButtonSize(button.size, mainCanvas))) {
-              console.log("clicked on " + button.name);
-              if (button.name === "typewriter") {
-                console.log("starting writing");
-                gameState.writing = true;
-              } else if (button.isRoom) {
-                console.log("moving to room " + button.name);
-                gameState.room = button.name;
-              } else {
-                console.log("getting inspiration");
-                gameState.inspiration = Math.min(gameState.inspiration + 1 / 16.0, 1);
-              }
-            }
-          }
-        }
-      }
-    }
-
-    function isInside(pointX, pointY, { posX, posY, width, height }) {
-      return pointX >= posX && pointX <= (posX + width)
-        && pointY >= posY && pointY <= (posY + height);
-    }
-
-    function compare(a, b) {
-      if (a < b) {
-        return -1;
-      } else {
-        if (a > b) {
-          return 1;
-        } else {
-          return 0;
-        }
-      }
-    }
-
-    function drawRoom(gameState, canvas) {
-      const ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#000000";
-      const sortedAreas = areas.sort((a, b) => compare(b.layer, a.layer));
-      for (const area of sortedAreas) {
-        if (area.room === gameState.room) {
-          const imgName = area.name;
-          const areaHighlighted = gameState.areaHighlighted? gameState.areaHighlighted : null;
-          const areaHighlightedName = areaHighlighted? areaHighlighted.name : null;
-          const img = document.getElementById("img_" + imgName + (area.name === areaHighlightedName? "_on" : "_off"));
-          if (img === undefined) {
-            console.log("missing image for " + imgName);
-          } else {
-            const imgSize = getButtonSize(areas.find(x => x.name === imgName).imgSize, canvas);
-            ctx.drawImage(img, imgSize.posX, imgSize.posY, imgSize.width, imgSize.height);
-          }
-        }
-      }
-/*
-      for (const button of areas) {
-        if (gameState.room === button.room) {
-          // if (button.name !== "typewriter") {
-            unhighlightElement(button);
-          // }
-        }
-      }
-      */
-      if (gameState.writing) {
-        ctx.fillStyle = "#77777777"
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
-      }
-      const uiPos = getButtonSize(ui, canvas);
-      ctx.font = "20px Georgia";
-      ctx.fillStyle = "#000000";
-      ctx.fillText(languages.selected.inspiration + gameState.inspiration.toFixed(2), uiPos.posX, uiPos.posY);
-
-      // TODO: how to do a newline in the drawn text??
-      // ctx.fillText(languages.selected.progress + gameState.progress.toFixed(2), uiPos.posX, uiPos.posY + uiPos.height);
-      ctx.fillText(languages.selected.pages + gameState.pages, uiPos.posX, uiPos.posY + 2 * uiPos.height);
-    }
 
     /**
      * returns true if the page was completed, false otherwise
