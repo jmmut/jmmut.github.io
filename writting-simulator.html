@@ -210,7 +210,7 @@
     }
     function showPlay(event) {
       showView("play_div");
-      main();
+      mainGameLoop();
     }
 
     const languages = {
@@ -241,9 +241,7 @@
     };
     const pageCanvas = document.getElementById("writingPage");
 
-
     test();
-    // main();
 
     function changeLanguage(event) {
       console.log("changing language to " + event.target.value);
@@ -260,7 +258,7 @@
     changeLanguage({ target: {value: "english" }})
     addListener("language", "change", changeLanguage);
 
-    function main() {
+    function mainGameLoop() {
       // the game state will change, so this shouldn't be declared as global
       const gameState = {
         room: "mainRoom", areaHighlighted: null,
@@ -277,8 +275,10 @@
       const y = event.pageY - mainCanvas.offsetTop;
       console.log("in click event. x: " + x + ", y: " + y);
 
-      updateGameStateFromClick(gameState, x, y);
-      drawRoom(gameState, mainCanvas);
+      const needRedraw = updateGameStateFromClick(gameState, x, y);
+      if (needRedraw) {
+        drawRoom(gameState, mainCanvas);
+      }
 
       if (gameState.writing) {
         const pageComplete = drawPage(pageCanvas, pageSize, gameState.numberOfLetters);
@@ -290,11 +290,11 @@
           console.log("page completed");
         }
       }
-      onMouseMove(event, gameState);
     }
 
     /**
      * this function only changes game state, doesn't draw anything
+     * @return whether we need a redraw.
      */
     function updateGameStateFromClick(gameState, clickX, clickY) {
       if (gameState.writing) {
@@ -307,6 +307,8 @@
         } else {
           gameState.writing = false;
           console.log("stopped writing");
+          updateGameStateFromMouseMove(gameState, clickX, clickY);
+          return true;
         }
       } else {
         for (const area of areas) {
@@ -316,9 +318,11 @@
               if (area.name === "typewriter") {
                 console.log("starting writing");
                 gameState.writing = true;
+                return true;
               } else if (area.isRoom) {
                 console.log("moving to room " + area.name);
                 gameState.room = area.name;
+                return true;
               } else {
                 console.log("getting inspiration");
                 // TODO: diminishing returns when spamming the same source of inspiration
@@ -328,6 +332,7 @@
           }
         }
       }
+      return false;
     }
 
     function isInside(pointX, pointY, { posX, posY, width, height }) {
@@ -384,23 +389,23 @@
     }
 
     function onMouseMove(event, gameState) {
+      updateGameStateFromMouseMove(
+          gameState,
+          event.pageX - mainCanvas.offsetLeft,
+          event.pageY - mainCanvas.offsetTop);
+
       if (!gameState.writing) {
-        const xCoef = (event.pageX - mainCanvas.offsetLeft) / mainCanvas.width;
-        const yCoef = (event.pageY - mainCanvas.offsetTop) / mainCanvas.height;
+        drawRoom(gameState, mainCanvas);
+      }
+    }
+
+    function updateGameStateFromMouseMove(gameState, mousePosX, mousePosY) {
+      if (!gameState.writing) {
+        const xCoef = mousePosX / mainCanvas.width;
+        const yCoef = mousePosY / mainCanvas.height;
         //console.log("in click move event. xCoef: " + xCoef + ", yCoef: " + yCoef);
 
-        const newPointing = is_the_mouse_over_any_element();
-        function is_the_mouse_over_any_element() {
-          let anyPointing = null;
-          for (const button of areas) {
-            if (gameState.room === button.room) {
-              if (isInside(xCoef, yCoef, button.size)) {
-                anyPointing = button;
-              }
-            }
-          }
-          return anyPointing;
-        }
+        const newPointing = is_the_mouse_over_any_element(gameState, xCoef, yCoef);
 
         const highlight_has_to_change = gameState.areaHighlighted !== newPointing;
         if (highlight_has_to_change) {
@@ -438,8 +443,19 @@
           }
         }
         gameState.areaHighlighted = newPointing;
-        drawRoom(gameState, mainCanvas);
       }
+    }
+
+    function is_the_mouse_over_any_element(gameState, xCoef, yCoef) {
+      let anyPointing = null;
+      for (const area of areas) {
+        if (gameState.room === area.room) {
+          if (isInside(xCoef, yCoef, area.size)) {
+            anyPointing = area;
+          }
+        }
+      }
+      return anyPointing;
     }
 
     function unhighlightElement(button) {
