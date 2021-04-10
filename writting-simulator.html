@@ -219,7 +219,7 @@
     function mainGameLoop() {
       // the game state will change, so this shouldn't be declared as global
       const gameState = {
-        room: "mainRoom", areaHighlighted: null,
+        room: "mainRoom", areaHighlighted: null, areaChanged: false,
         writing: false, inspiration: 0.5, progress: 0.0, pages: 0, numberOfLetters: 0
       }
       mainCanvas.addEventListener('click', event => { onClick(event, gameState); });
@@ -293,6 +293,7 @@
     }
     
     function drawRoom(gameState, canvas) {
+      console.log("draw room")
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#000000";
@@ -317,15 +318,7 @@
           }
         }
       }
-/*
-      for (const button of areas) {
-        if (gameState.room === button.room) {
-          // if (button.name !== "typewriter") {
-            unhighlightElement(button);
-          // }
-        }
-      }
-      */
+
       if (gameState.writing) {
         ctx.fillStyle = "#77777777";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -349,7 +342,8 @@
           event.pageX - mainCanvas.offsetLeft,
           event.pageY - mainCanvas.offsetTop);
 
-      if (!gameState.writing) {
+      if (!gameState.writing && gameState.areaChanged) {
+        console.log("mouseMove redraw")
         drawRoom(gameState, mainCanvas);
       }
     }
@@ -362,39 +356,19 @@
 
         const newPointing = is_the_mouse_over_any_element(gameState, xCoef, yCoef);
 
-        const highlight_has_to_change = gameState.areaHighlighted !== newPointing;
-        if (highlight_has_to_change) {
+        gameState.areaChanged = gameState.areaHighlighted !== newPointing;
+        if (gameState.areaChanged) {
           const we_moved_out_of_an_element = gameState.areaHighlighted !== null;
           const we_have_not_moved_to_another_room =
             gameState.room === (gameState.areaHighlighted ? gameState.areaHighlighted.room : null);
 
           if (we_moved_out_of_an_element && we_have_not_moved_to_another_room) {
             console.log("moving out of " + gameState.areaHighlighted.name);
-            // unhighlightElement(gameState.areaHighlighted);
           }
 
           const we_moved_into_an_element = newPointing !== null;
           if (we_moved_into_an_element) {
             console.log("moving into " + newPointing.name);
-            // hightlightElement();
-            function hightlightElement() {
-              imgName = newPointing.name
-              const img = document.getElementById("img_" + imgName + "_on");
-              if (img === undefined) {
-                console.log("missing image for " + imgName);
-              } else {
-                const imgSize = getButtonSize(areas.find(x => x.name === imgName).imgSize, mainCanvas);
-                const mainCtx = mainCanvas.getContext("2d");
-                mainCtx.drawImage(img, imgSize.posX, imgSize.posY, imgSize.width, imgSize.height);
-              }
-              // const mainCtx = mainCanvas.getContext("2d");
-              // if (newPointing.name !== "typewriter") {
-                // const size = getButtonSize(newPointing.size, mainCanvas);
-                // mainCtx.fillStyle = "rgba(40, 40, 200, 0.5)";
-                // mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
-              // }
-              mainCanvas.style.cursor = "pointer";
-            }
           }
         }
         gameState.areaHighlighted = newPointing;
@@ -412,29 +386,6 @@
       }
       return anyPointing;
     }
-
-    function unhighlightElement(button) {
-      imgName = button.name
-      const img = document.getElementById("img_" + imgName + "_off");
-      if (img === undefined) {
-        console.log("missing image for " + imgName);
-      } else {
-        const imgSize = getButtonSize(areas.find(x => x.name === imgName).imgSize, mainCanvas);
-        const mainCtx = mainCanvas.getContext("2d");
-        mainCtx.drawImage(img, imgSize.posX, imgSize.posY, imgSize.width, imgSize.height);
-      }
-      // const mainCtx = mainCanvas.getContext("2d");
-      // if (button.name !== "typewriter") {
-      //   const size = getButtonSize(button.size, mainCanvas);
-      //   mainCtx.fillStyle = "#bbbbbb";
-      //   mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
-      //   mainCtx.fillStyle = "#000000";
-      //   mainCtx.strokeRect(size.posX, size.posY, size.width, size.height);
-      //   mainCtx.font = "20px Georgia";
-      //   mainCtx.fillText(button.name, size.posX, size.posY + size.height / 2.0);
-      // }
-      mainCanvas.style.cursor = "default";
-    };
 
     /**
      * returns true if the page was completed, false otherwise
