@@ -120,7 +120,7 @@
         , size: { posX: 0.25, posY: 7 / 8.0, width: 0.5, height: 1 / 8.0 }
       }
     ];
-    const ui = { posX: 24 / 32.0, posY: 0.75, width: 1 / 8.0, height: 1 / 16.0 };
+    const ui = { posX: 23 / 32.0, posY: 0.75, width: 4 / 16.0, height: 3 / 16.0 };
     const areas = unsortedAreas.sort((a, b) => compare(b.layer, a.layer));
 
     function compare(a, b) {
@@ -234,9 +234,7 @@
       console.log("in click event. x: " + x + ", y: " + y);
 
       const needRedraw = updateGameStateFromClick(gameState, x, y);
-      if (needRedraw) {
-        drawRoom(gameState, mainCanvas);
-      }
+      drawRoom(gameState, mainCanvas);
 
       if (gameState.writing) {
         const pageComplete = drawPage(pageCanvas, pageSize, gameState.numberOfLetters);
@@ -266,7 +264,6 @@
           gameState.writing = false;
           console.log("stopped writing");
           updateGameStateFromMouseMove(gameState, clickX, clickY);
-          return true;
         }
       } else {
         for (const area of areas) {
@@ -276,11 +273,9 @@
               if (area.name === "typewriter") {
                 console.log("starting writing");
                 gameState.writing = true;
-                return true;
               } else if (area.isRoom) {
                 console.log("moving to room " + area.name);
                 gameState.room = area.name;
-                return true;
               } else {
                 console.log("getting inspiration");
                 // TODO: diminishing returns when spamming the same source of inspiration
@@ -290,7 +285,6 @@
           }
         }
       }
-      return false;
     }
 
     function isInside(pointX, pointY, { posX, posY, width, height }) {
@@ -333,17 +327,20 @@
       }
       */
       if (gameState.writing) {
-        ctx.fillStyle = "#77777777"
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        ctx.fillStyle = "#77777777";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
       const uiPos = getButtonSize(ui, canvas);
       ctx.font = "20px Georgia";
+      ctx.fillStyle = "#bbbbbbbb";
+      ctx.fillRect(uiPos.posX, uiPos.posY, uiPos.width, uiPos.height);
       ctx.fillStyle = "#000000";
-      ctx.fillText(languages.selected.inspiration + gameState.inspiration.toFixed(2), uiPos.posX, uiPos.posY);
+      const leftMargin = 0.1 * uiPos.width;
+      ctx.fillText(languages.selected.inspiration + gameState.inspiration.toFixed(2), uiPos.posX + leftMargin, uiPos.posY + 0.4 * uiPos.height);
 
       // TODO: how to do a newline in the drawn text??
       // ctx.fillText(languages.selected.progress + gameState.progress.toFixed(2), uiPos.posX, uiPos.posY + uiPos.height);
-      ctx.fillText(languages.selected.pages + gameState.pages, uiPos.posX, uiPos.posY + 2 * uiPos.height);
+      ctx.fillText(languages.selected.pages + gameState.pages, uiPos.posX + leftMargin, uiPos.posY + 0.8 * uiPos.height);
     }
 
     function onMouseMove(event, gameState) {
