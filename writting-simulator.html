@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+  <!DOCTYPE HTML>
 <html lang="es">
 
 <head>
@@ -12,66 +12,33 @@
       font-size: 25px;
       text-align: center;
     }
-    button:hover {
-      color: "#5555ff"
+    .clickable {
+      cursor: pointer;
     }
 
     body {
       background-color: #bbbbbb;
       color: #000000;
     }
-
-    #credits_table {
-      border-collapse: inherit;
-      border-spacing: 0 30px;
+    table{
+      border-collapse: collapse;
       margin-left: auto;
       margin-right: auto;
     }
-
+    td {
+      border-top: 1px solid black;
+      width: 60%;
+      text-align: left;
+    }
     tr {
       vertical-align: top;
     }
-
-    /* 
-    table {
-      padding: initial;
-      align-items: right;
-    }
-    */
-
-    /*
-    #options_div div {
-      display: inline;
-      margin: 0 1em 0 1em;
-      width: 30%;
-    }
-      */
-
-    /**/
-    /*
-    #language_div div {
-      text-align: left;
-      display: inline;
-      float: left;
-    }
-      */
-
-    /*
-    #credits_div div {
-      display: inline;
-      text-align: right;
-      float: right;
-    }
-      */
-
-    /**/
-
   </style>
 </head>
 
 <body>
   <div id="menu_div">
-    <div id="play_button_div">
+    <div><span id="play_button_span" class="clickable"></span>
     </div>
     <div id="language_div">
       <label id="language_label" for="language"></label>
@@ -80,41 +47,32 @@
         <option value="spanish">Español</option>
       </select>
     </div>
-    <div id="credits_button_div">
+    <div><span id="credits_button_span" class="clickable"></span>
     </div>
   </div>
 
   <div id="credits_div" style="display: none;">
-    <div id="menu_button_div_from_credits">
+    <div><span id="menu_button_span_from_credits" class="clickable"></span>
     </div>
     <br>
     <table id="credits_table">
       <tr>
-        <td id="credits_programming">Programming:</td>
+        <td id="credits_programming"></td>
         <td>jmmut</td>
       </tr>
-      <br>
       <tr>
-        <td id="credits_art">Art:</td>
+        <td id="credits_art"></td>
         <td>D. F. Marin</td>
       </tr>
       <tr>
-        <td id="credits_design">Design: </td>
+        <td id="credits_design"></td>
         <td>jmmut<br>D. F. Marin<br>hburriel</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
       </tr>
     </table>
   </div>
 
   <div id="play_div" style="display: none;">
-    <div id="menu_button_div_from_play">
+    <div><span id="menu_button_span_from_play" class="clickable"></span>
     </div>
     <!-- size will be overwritten in the js side-->
     <canvas id="mainCanvas" width="10" height="10" style="border:1px solid #777777;">
@@ -191,10 +149,10 @@
       let elem = document.getElementById(dom_id)
       elem.addEventListener(event_type, event => { callback(event); });
     }
-    addListener("play_button_div", "click", showPlay);
-    addListener("credits_button_div", "click", showCredits);
-    addListener("menu_button_div_from_credits", "click", showMainMenu);
-    addListener("menu_button_div_from_play", "click", showMainMenu);
+    addListener("play_button_span", "click", showPlay);
+    addListener("credits_button_span", "click", showCredits);
+    addListener("menu_button_span_from_credits", "click", showMainMenu);
+    addListener("menu_button_span_from_play", "click", showMainMenu);
     
     function showView(viewToShow) {
       const views = ["credits_div", "menu_div", "play_div"];
@@ -247,10 +205,10 @@
       console.log("changing language to " + event.target.value);
       languages.selected = languages.available[event.target.value];
       document.getElementById("language_label").innerText = languages.selected.language;
-      document.getElementById("credits_button_div").innerText = languages.selected.credits;
-      document.getElementById("play_button_div").innerText = languages.selected.play;
-      document.getElementById("menu_button_div_from_play").innerText = languages.selected.menu;
-      document.getElementById("menu_button_div_from_credits").innerText = languages.selected.menu;
+      document.getElementById("credits_button_span").innerText = languages.selected.credits;
+      document.getElementById("play_button_span").innerText = languages.selected.play;
+      document.getElementById("menu_button_span_from_play").innerText = languages.selected.menu;
+      document.getElementById("menu_button_span_from_credits").innerText = languages.selected.menu;
       document.getElementById("credits_programming").innerText = languages.selected.programming;
       document.getElementById("credits_art").innerText = languages.selected.art;
       document.getElementById("credits_design").innerText = languages.selected.design;
