@@ -90,6 +90,8 @@
   <img id="img_shelf_on" style="display: none;" src="assets/writ/graphics/img_shelf_on.jpg">
   <img id="img_window_off" style="display: none;" src="assets/writ/graphics/img_window_off.jpg">
   <img id="img_window_on" style="display: none;" src="assets/writ/graphics/img_window_on.jpg">
+  <img id="img_landscape_off" style="display: none;" src="assets/writ/graphics/img_landscape_off.png">
+  <img id="img_landscape_on" style="display: none;" src="assets/writ/graphics/img_landscape_on.png">
 
 
   <script>
@@ -112,12 +114,21 @@
         , imgSize: { posX: 0.5, posY: 0.0, width: 0.5, height: 1.0 }
       },
       {
+        name: "landscape", room: "window", isRoom: false, isBackground: true, layer: 50
+        , size: { posX: 0, posY: 0, width: 1, height: 1 }
+        , imgSize: { posX: 0, posY: 0, width: 1, height: 1 }
+      },
+      {
         name: "trees", room: "window", isRoom: false, layer: 50
-        , size: { posX: 5 / 8.0, posY: 0.125, width: 3 / 8.0, height: 0.5 }
+        , size: { posX: 1-0.2360679774997897, posY: 0.2360679774997897, width: 0.2360679774997897, height: 0.38196601125010515 }
+      },
+      {
+        name: "park", room: "window", isRoom: false, layer: 50
+        , size: { posX: 0.14589803375031543, posY: 0.38196601125010515, width: 0.40983005625052576, height: 0.2360679774997897 }
       },
       {
         name: "mainRoom", room: "window", isRoom: true, layer: 30
-        , size: { posX: 0.25, posY: 7 / 8.0, width: 0.5, height: 1 / 8.0 }
+        , size: { posX: 0, posY: 1-0.14589803375031543, width: 1, height: 0.14589803375031543 }
       }
     ];
     const ui = { posX: 23 / 32.0, posY: 0.75, width: 4 / 16.0, height: 3 / 16.0 };
@@ -276,7 +287,8 @@
               } else if (area.isRoom) {
                 console.log("moving to room " + area.name);
                 gameState.room = area.name;
-              } else {
+                updateGameStateFromMouseMove(gameState, clickX, clickY);
+              } else if (!area.isBackground) {
                 console.log("getting inspiration");
                 // TODO: diminishing returns when spamming the same source of inspiration
                 gameState.inspiration = Math.min(gameState.inspiration + 1 / 16.0, 1);
@@ -307,7 +319,7 @@
             // console.log("missing image for " + imgName);
             const size = getButtonSize(area.size, mainCanvas);
             mainCtx.fillStyle = "#bbbbbb";
-            mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
+            // mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
             mainCtx.fillStyle = "#000000";
             mainCtx.strokeRect(size.posX, size.posY, size.width, size.height);
             mainCtx.font = "20px Georgia";
@@ -362,13 +374,15 @@
           const we_have_not_moved_to_another_room =
             gameState.room === (gameState.areaHighlighted ? gameState.areaHighlighted.room : null);
 
-          if (we_moved_out_of_an_element && we_have_not_moved_to_another_room) {
+          if (we_moved_out_of_an_element) {
             console.log("moving out of " + gameState.areaHighlighted.name);
+            mainCanvas.style.cursor = "default";
           }
 
           const we_moved_into_an_element = newPointing !== null;
           if (we_moved_into_an_element) {
             console.log("moving into " + newPointing.name);
+            mainCanvas.style.cursor = "pointer";
           }
         }
         gameState.areaHighlighted = newPointing;
@@ -378,9 +392,11 @@
     function is_the_mouse_over_any_element(gameState, xCoef, yCoef) {
       let anyPointing = null;
       for (const area of areas) {
-        if (gameState.room === area.room) {
-          if (isInside(xCoef, yCoef, area.size)) {
-            anyPointing = area;
+        if (!area.isBackground) {
+          if (gameState.room === area.room) {
+            if (isInside(xCoef, yCoef, area.size)) {
+              anyPointing = area;
+            }
           }
         }
       }
