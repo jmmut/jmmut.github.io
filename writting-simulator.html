@@ -341,7 +341,8 @@
       ctx.fillRect(uiPos.posX, uiPos.posY, uiPos.width, uiPos.height);
       ctx.fillStyle = "#000000";
       const leftMargin = 0.1 * uiPos.width;
-      ctx.fillText(languages.selected.inspiration + gameState.inspiration.toFixed(2), uiPos.posX + leftMargin, uiPos.posY + 0.4 * uiPos.height);
+      ctx.fillText(languages.selected.inspiration + (gameState.inspiration * 100).toFixed(0) + ' %',
+          uiPos.posX + leftMargin, uiPos.posY + 0.4 * uiPos.height);
 
       // TODO: how to do a newline in the drawn text??
       // ctx.fillText(languages.selected.progress + gameState.progress.toFixed(2), uiPos.posX, uiPos.posY + uiPos.height);
