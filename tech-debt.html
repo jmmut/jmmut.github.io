@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html lang="es">
+
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8">
+  <title>The technical debt game</title>
+  <style>
+    div,
+    p,
+    button {
+      font-size: 25px;
+      text-align: center;
+      margin-left: 20%;
+      margin-right: 20%;
+    }
+    label {
+      font-size: 13px;
+    }
+
+    body {
+      background-color: #bbbbbb;
+      color: #000000;
+    }
+    table {
+      /* border-collapse: collapse; */
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      border: 1px solid black;
+    }
+    .project_table {
+      /* border-collapse: collapse; */
+      border: 0px;
+    }
+    .task_table {
+      /* padding-left: 5%;
+      padding-right: 5%; */
+    }
+    .actions_table {
+      border: 0px;
+      border-top: 1px solid black;
+      table-layout: fixed;
+    }
+    td {
+      /* border-left: 1px solid black; */
+      /* border-right: 1px solid black; */
+      text-align: center;
+    }
+    .or_td {
+      width: 10%;
+    }
+    .options_list {
+      /* border-top: 1px solid black; */
+      /* border-left: 0px; */
+      /* border-right: 0px; */
+      text-align: left;
+      vertical-align: middle;
+      /* width: 120%; */
+      margin-left: 5%;
+      margin-right: 5%;
+    }
+    
+    .score_td {
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+    }
+    .box {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding-top: 2%;
+      padding-bottom: 2%;
+      
+    }
+  </style>
+</head>
+
+<body>
+  <div id="explanation_div">
+    You are a project manager.
+    <br/>
+    Your goal is to finish the project in the minimum time possible.
+  </div>
+  <br/>
+  <br/>
+  <br/>
+
+  <div id="table_div">
+    <table id="project_table" class="project_table">
+    </table>
+  </div>
+
+  <br/>
+  <br/>
+  <div id="score_text_div">
+    Score:
+    <table class="box">
+      <tr>
+        <td class="score_td">
+          Time spent
+        </td>
+        <td class="score_td">
+          Penalization to all future tasks
+        </td>
+      </tr>
+      <tr>
+        <td id="score" class="score_td">
+          0 days
+        </td>
+        <td id="penalization" class="score_td">
+          0 days
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+  <script>
+    let finished = false;
+    let timeline = [];
+    let features = 0;
+    let properly_cost = 7;
+    let quickly_cost = 2;
+    let refactor_cost = 8;
+
+    table = document.getElementById("project_table");
+
+    var header = table.insertRow(-1);
+    var action1 = table.insertRow(-1);
+    var or = table.insertRow(-1);
+    var action2 = table.insertRow(-1);
+    for(let i = 1; i <= 5; i++) {
+      table.insertRow(-1).insertCell(-1).appendChild(createTaskTable(i));
+    }
+
+    function createTaskTable(index) {
+      taskTable = document.createElement("table");
+      taskTable.classList.add("task_table");
+      taskNameRow = taskTable.insertRow(-1);
+      taskNameRow.innerHTML = "Task " + index;
+
+      taskActionsRow = taskTable.insertRow(-1);
+      actionsCell = taskActionsRow.insertCell(-1);
+      actionsCell.appendChild(createActionsTable(index));
+      return taskTable;
+    }
+
+    function createActionsTable(index) {
+      actionsTable = document.createElement("table");
+      actionsTable.classList.add("actions_table");
+
+      actionsRow = actionsTable.insertRow(-1);
+      actionsRow.insertCell(-1).appendChild(createOptionList([
+        {
+          "id": "task_" + index + "_properly",
+          "text": "Do it properly (" + properly_cost + " days)"
+        }]));
+
+      or = actionsRow.insertCell(-1);
+      or.classList.add("or_td");
+      or.innerHTML = "or";
+
+      actionsRow.insertCell(-1).appendChild(createOptionList([
+        {
+          "id": "task_" + index + "_quickly",
+          "text": "Do it quickly (" + quickly_cost + " days + penalization)"
+        }, {
+          "id": "task_" + index + "_refactor", 
+          "text": "Refactor (" + refactor_cost + " days)"
+        }]));
+      return actionsTable;
+    }
+
+    function createOptionList(options) {
+      options_div = document.createElement("div");
+      options_div.classList.add("options_list");
+      for(let i = 0; i < options.length; i++) {
+        addCheckboxTo(options_div, options[i].id, options[i].text);
+        options_div.appendChild(document.createElement("br"));
+      }
+      return options_div;
+    }
+
+    function addCheckboxTo(parent, checkbox_id, text) {
+      input = document.createElement("input")
+      input.type = "checkbox";
+      input.id = checkbox_id;
+      input.value = checkbox_id;
+
+      label = document.createElement("label");
+      label.innerHTML = text;
+      label.for = checkbox_id;
+
+      parent.appendChild(input);
+      parent.appendChild(label);
+    }
+
+    // function addListener(dom_id, event_type, callback) {
+    //   let elem = document.getElementById(dom_id)
+    //   elem.addEventListener(event_type, event => { callback(event); });
+    // }
+    // addListener("play_button_span", "click", showPlay);
+    // addListener("credits_button_span", "click", showCredits);
+    // addListener("menu_button_span_from_credits", "click", showMainMenu);
+    // addListener("menu_button_span_from_play", "click", showMainMenu);
+  </script>
+</body>
