@@ -91,6 +91,7 @@
   </div>
 
   <br/>
+  
   <br/>
   <div id="score_text_div">
     Score:
@@ -117,27 +118,29 @@
 
   <script>
     let finished = false;
-    let timeline = [];
+    let taskCount = 5;
+    let tasks = [];
+    for(let i = 0; i < taskCount; i++) {
+      tasks.push({"task_cost": 0, "refactor_cost": 0, "penalization": 0, "cleanup": 0});
+    }
     let features = 0;
     let properly_cost = 7;
-    let quickly_cost = 2;
-    let refactor_cost = 8;
+    let quickly_cost = 3;
+    let refactor_cost = 6;
+    let penalization_cost = 2;
+    let timeline = [];
 
-    table = document.getElementById("project_table");
+    let table = document.getElementById("project_table");
 
-    var header = table.insertRow(-1);
-    var action1 = table.insertRow(-1);
-    var or = table.insertRow(-1);
-    var action2 = table.insertRow(-1);
-    for(let i = 1; i <= 5; i++) {
+    for(let i = 0; i < tasks.length; i++) {
       table.insertRow(-1).insertCell(-1).appendChild(createTaskTable(i));
     }
 
     function createTaskTable(index) {
-      taskTable = document.createElement("table");
+      let taskTable = document.createElement("table");
       taskTable.classList.add("task_table");
       taskNameRow = taskTable.insertRow(-1);
-      taskNameRow.innerHTML = "Task " + index;
+      taskNameRow.innerHTML = "Task " + (index +1);
 
       taskActionsRow = taskTable.insertRow(-1);
       actionsCell = taskActionsRow.insertCell(-1);
@@ -146,29 +149,42 @@
     }
 
     function createActionsTable(index) {
-      actionsTable = document.createElement("table");
+      let actionsTable = document.createElement("table");
       actionsTable.classList.add("actions_table");
 
       actionsRow = actionsTable.insertRow(-1);
       actionsRow.insertCell(-1).appendChild(createOptionList([
         {
-          "id": "task_" + index + "_properly",
-          "text": "Do it properly (" + properly_cost + " days)"
+          "id": getTaskName(index, "properly"),
+          "text": getTaskText(properly_cost, "properly")
         }]));
 
-      or = actionsRow.insertCell(-1);
+      let or = actionsRow.insertCell(-1);
       or.classList.add("or_td");
       or.innerHTML = "or";
 
       actionsRow.insertCell(-1).appendChild(createOptionList([
         {
-          "id": "task_" + index + "_quickly",
-          "text": "Do it quickly (" + quickly_cost + " days + penalization)"
+          "id": getTaskName(index, "quickly"),
+          "text": getTaskText(quickly_cost, "quickly")
         }, {
-          "id": "task_" + index + "_refactor", 
-          "text": "Refactor (" + refactor_cost + " days)"
+          "id": getTaskName(index, "refactor"),
+          "text": getTaskText(refactor_cost, "refactor")
         }]));
       return actionsTable;
+    }
+
+    function getTaskName(index, type) {
+      return "task_" + index + "_" + type;
+    }
+    function getTaskText(cost, type) {
+      if (type === "quickly") {
+        return "Do it quickly (" + cost + " days)";
+      } else if (type === "refactor") {
+        return "Refactor (" + cost + " days)";
+      } else {
+        return "Do it properly (" + cost + " days)";
+      }
     }
 
     function createOptionList(options) {
@@ -182,26 +198,152 @@
     }
 
     function addCheckboxTo(parent, checkbox_id, text) {
+      let label = document.createElement("label");
+      // label.for = checkbox_id;
+
       input = document.createElement("input")
       input.type = "checkbox";
       input.id = checkbox_id;
       input.value = checkbox_id;
 
-      label = document.createElement("label");
-      label.innerHTML = text;
-      label.for = checkbox_id;
+      label.innerText = text;
+      label.appendChild(input);
 
-      parent.appendChild(input);
       parent.appendChild(label);
     }
 
-    // function addListener(dom_id, event_type, callback) {
-    //   let elem = document.getElementById(dom_id)
-    //   elem.addEventListener(event_type, event => { callback(event); });
-    // }
-    // addListener("play_button_span", "click", showPlay);
-    // addListener("credits_button_span", "click", showCredits);
-    // addListener("menu_button_span_from_credits", "click", showMainMenu);
-    // addListener("menu_button_span_from_play", "click", showMainMenu);
+    function addListener(dom_id, event_type, callback) {
+      let elem = document.getElementById(dom_id)
+      elem.addEventListener(event_type, event => { callback(event); });
+    }
+    for (let index = 0; index < tasks.length; index++) {
+      addListener(getTaskName(index, "quickly"), "change", selectCheckbox);
+      addListener(getTaskName(index, "refactor"), "change", selectCheckbox);
+      addListener(getTaskName(index, "properly"), "change", selectCheckbox);
+    }
+    function selectCheckbox(event) {
+      let [_, index, type] = /task_([0-9]+)_([a-z]+)/.exec(event.target.id);
+      let task = tasks[index];
+      if (event.target.checked) {
+        if (type === "properly") {
+          uncheck(getTaskName(index, "quickly"));
+          uncheck(getTaskName(index, "refactor"));
+          task = get_element_in_timeline_or_append(index);
+          task.task_cost = properly_cost;
+          task.penalization = 0;
+          task.refactor_cost = 0;
+          task.cleanup = 0;
+        } else {
+          uncheck(getTaskName(index, "properly"));
+          task = get_element_in_timeline_or_append(index);
+          task.penalization = penalization_cost;
+          task.task_cost = quickly_cost;
+          if (type === "refactor") {
+            check(getTaskName(index, "quickly"));
+            task.cleanup = penalization_cost;
+            task.refactor_cost = refactor_cost;
+          }
+        }
+      } else {
+        if (type === "properly") {
+          removeFromTimeline(index);
+        } else if (type === "quickly") {
+          uncheck(getTaskName(index, "refactor"));
+          removeFromTimeline(index);
+        } else {
+          task = get_element_in_timeline_or_append(index);
+          task.refactor_cost = 0;
+          task.cleanup = 0;
+        }
+      }
+      recalculate_costs();
+    }
+    function check(id) {
+      document.getElementById(id).checked = true;
+    }
+    function uncheck(id) {
+      document.getElementById(id).checked = false;
+    }
+    function get_element_in_timeline_or_append(index) {
+      let found = false;
+      for (let i = 0; i < timeline.length; i++) {
+        if (timeline[i].id === index) {
+          return timeline[i];
+        }
+      }
+      timeline.push({"id": index, "task_cost": 0, "penalization": 0, "refactor_cost": 0, "cleanup": 0});
+      return timeline[timeline.length -1];
+    }
+    function replaceOrAppendInTimeline(index, cost, penalization) {
+      let found = false;
+      let to_add = {"id": index, "cost": cost + total_penalization, "penalization": penalization};
+      for (let i = 0; i < timeline.length; i++) {
+        if (timeline[i].id === index) {
+          timeline[i] = to_add;
+          found = true;
+        }
+      }
+      if (!found) {
+        timeline.push(to_add);
+      }
+    }
+    function updateTimeline(index, cost, penalization) {
+      for (let i = 0; i < timeline.length; i++) {
+        if (timeline[i].id === index) {
+          timeline[i].cost += cost;
+          timeline[i].penalization += penalization;
+        }
+      }
+    }
+    function removeFromTimeline(index) {
+      timeline = timeline.filter(task => task.id !== index)
+    }
+    function recalculate_costs() {
+      let total_penalization = 0;
+      let total_cost = 0;
+      for (let index = 0; index < timeline.length; index++) {
+        let task = timeline[index];
+        let properly = document.getElementById(getTaskName(task.id, "properly"))
+        if (properly.checked === true) {
+          properly.parentNode.childNodes[0].textContent = getTaskText(properly_cost + "+" + total_penalization, "properly");
+        }
+        let quickly = document.getElementById(getTaskName(task.id, "quickly"))
+        if (quickly.checked === true) {
+          quickly.parentNode.childNodes[0].textContent = getTaskText(quickly_cost + "+" + total_penalization, "quickly");
+        }
+        let refactor = document.getElementById(getTaskName(task.id, "refactor"))
+        if (refactor.checked === true) {
+          refactor.parentNode.childNodes[0].textContent = getTaskText(refactor_cost, "refactor");
+        }
+        total_cost += task.task_cost + task.refactor_cost + total_penalization;
+        total_penalization += Math.max(0, task.penalization - task.cleanup);
+      }
+      for (let index = 0; index < taskCount; index++) {
+        let properly = document.getElementById(getTaskName(index, "properly"))
+        if (properly.checked === false) {
+          properly.parentNode.childNodes[0].textContent = getTaskText(properly_cost + "+" + total_penalization, "properly");
+        }
+        let quickly = document.getElementById(getTaskName(index, "quickly"))
+        if (quickly.checked === false) {
+          quickly.parentNode.childNodes[0].textContent = getTaskText(quickly_cost + "+" + total_penalization, "quickly");
+        }
+        let refactor = document.getElementById(getTaskName(index, "refactor"))
+        if (refactor.checked === false) {
+          refactor.parentNode.childNodes[0].textContent = getTaskText(refactor_cost, "refactor");
+        }
+      }
+      document.getElementById("score").innerText = total_cost + " days";
+      document.getElementById("penalization").innerText = total_penalization + " days";
+    }
+    function get_current_costs() {
+      let total_penalization = 0;
+      let total_cost = 0;
+      for (let index = 0; index < taskCount; index++) {
+        let task = tasks[index];
+        total_penalization += Math.max(0, task.penalization - task.cleanup);
+        total_cost += task.task_cost + task.refactor_cost;
+      }
+      return [total_penalization, total_cost];
+    }
   </script>
 </body>
