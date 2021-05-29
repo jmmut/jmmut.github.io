@@ -33,6 +33,14 @@
     tr {
       vertical-align: top;
     }
+    canvas {
+    /* 
+      image-rendering: crisp-edges;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -webkit-crisp-edges;*/
+      image-rendering: pixelated;
+      /*image-rendering: crisp-edges;*/
+    } 
   </style>
 </head>
 
@@ -124,7 +132,7 @@
       },
       {
         name: "park", room: "window", isRoom: false, layer: 50
-        , size: { posX: 0.14589803375031543, posY: 0.38196601125010515, width: 0.40983005625052576, height: 0.2360679774997897 }
+        , size: { posX: 0.14589803375031543, posY: 0.38196601125010515, width: 0.38196601125010515, height: 0.2360679774997897 }
       },
       {
         name: "mainRoom", room: "window", isRoom: true, layer: 30
@@ -199,6 +207,7 @@
 
     const mainCanvas = document.getElementById("mainCanvas");
     const mainCtx = mainCanvas.getContext("2d");
+    mainCtx.imageSmoothingEnabled = false;
     mainCanvas.height = 480;
     mainCanvas.width = mainCanvas.height * 16 / 9.0;  // panoramic 16:9
     const pageHeight = mainCanvas.height * 3 / 4.0
