@@ -1,4 +1,4 @@
-  <!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html lang="es">
 
 <head>
@@ -100,6 +100,12 @@
   <img id="img_window_on" style="display: none;" src="assets/writ/graphics/img_window_on.jpg">
   <img id="img_landscape_off" style="display: none;" src="assets/writ/graphics/img_landscape_off.png">
   <img id="img_landscape_on" style="display: none;" src="assets/writ/graphics/img_landscape_on.png">
+  <img id="img_park_on" style="display: none;" src="assets/writ/graphics/img_park_on.png">
+  <img id="img_park_off" style="display: none;" src="assets/writ/graphics/img_park_off.png">
+  <img id="img_trees_on" style="display: none;" src="assets/writ/graphics/img_trees_on.png">
+  <img id="img_trees_off" style="display: none;" src="assets/writ/graphics/img_trees_off.png">
+  <img id="img_mainRoom_off" style="display: none;" src="assets/writ/graphics/img_landscape_off.png">
+  <img id="img_mainRoom_on" style="display: none;" src="assets/writ/graphics/img_landscape_on.png">
 
 
   <script>
@@ -129,14 +135,17 @@
       {
         name: "trees", room: "window", isRoom: false, layer: 50
         , size: { posX: 1-0.2360679774997897, posY: 0.2360679774997897, width: 0.2360679774997897, height: 0.38196601125010515 }
+        // , imgSize: {posX: 1-0.2360679774997897, posY: 0, width: 0.38196601125010515, height: 1-0.14589803375031543}
       },
       {
         name: "park", room: "window", isRoom: false, layer: 50
         , size: { posX: 0.14589803375031543, posY: 0.38196601125010515, width: 0.38196601125010515, height: 0.2360679774997897 }
+        // , imgSize: {posX: 0, posY: 0, width: 0.38196601125010515 + 0.14589803375031543, height: 1-0.14589803375031543}
       },
       {
         name: "mainRoom", room: "window", isRoom: true, layer: 30
         , size: { posX: 0, posY: 1-0.14589803375031543, width: 1, height: 0.14589803375031543 }
+        // , imgSize: {posX: 0, posY: 0, width: 1, height: 1}
       }
     ];
     const ui = { posX: 23 / 32.0, posY: 0.75, width: 4 / 16.0, height: 3 / 16.0 };
@@ -325,14 +334,14 @@
           const areaHighlightedName = areaHighlighted? areaHighlighted.name : null;
           const img = document.getElementById("img_" + imgName + (area.name === areaHighlightedName? "_on" : "_off"));
           if (img === undefined || area.imgSize === undefined) {
-            // console.log("missing image for " + imgName);
+            console.log("missing image for " + imgName);
             const size = getButtonSize(area.size, mainCanvas);
-            mainCtx.fillStyle = "#bbbbbb";
-            // mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
-            mainCtx.fillStyle = "#000000";
-            mainCtx.strokeRect(size.posX, size.posY, size.width, size.height);
-            mainCtx.font = "20px Georgia";
-            mainCtx.fillText(area.name, size.posX, size.posY + size.height / 2.0);
+            //mainCtx.fillStyle = "#bbbbbb";
+            //// mainCtx.fillRect(size.posX, size.posY, size.width, size.height);
+            //mainCtx.fillStyle = "#000000";
+            //mainCtx.strokeRect(size.posX, size.posY, size.width, size.height);
+            //mainCtx.font = "20px Georgia";
+            //mainCtx.fillText(area.name, size.posX, size.posY + size.height / 2.0);
           } else {
             const imgSize = getButtonSize(area.imgSize, canvas);
             ctx.drawImage(img, imgSize.posX, imgSize.posY, imgSize.width, imgSize.height);
