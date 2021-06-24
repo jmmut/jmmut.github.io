@@ -33,14 +33,6 @@
     tr {
       vertical-align: top;
     }
-    canvas {
-    /* 
-      image-rendering: crisp-edges;
-      image-rendering: -moz-crisp-edges;
-      image-rendering: -webkit-crisp-edges;*/
-      image-rendering: pixelated;
-      /*image-rendering: crisp-edges;*/
-    } 
   </style>
 </head>
 
@@ -133,19 +125,19 @@
         , imgSize: { posX: 0, posY: 0, width: 1, height: 1 }
       },
       {
-        name: "trees", room: "window", isRoom: false, layer: 50
+        name: "trees", room: "window", isRoom: false, layer: 40
         , size: { posX: 1-0.2360679774997897, posY: 0.2360679774997897, width: 0.2360679774997897, height: 0.38196601125010515 }
-        // , imgSize: {posX: 1-0.2360679774997897, posY: 0, width: 0.38196601125010515, height: 1-0.14589803375031543}
+        , imgSize: {posX: 0.6627, posY: 0, width: 0.337, height: 1-0.14589803375031543}
       },
       {
-        name: "park", room: "window", isRoom: false, layer: 50
+        name: "park", room: "window", isRoom: false, layer: 40
         , size: { posX: 0.14589803375031543, posY: 0.38196601125010515, width: 0.38196601125010515, height: 0.2360679774997897 }
-        // , imgSize: {posX: 0, posY: 0, width: 0.38196601125010515 + 0.14589803375031543, height: 1-0.14589803375031543}
+        , imgSize: {posX: 0, posY: 0, width: 0.55, height: 1-0.14589803375031543}
       },
       {
-        name: "mainRoom", room: "window", isRoom: true, layer: 30
+        name: "mainRoom", room: "window", isRoom: true, layer: 50
         , size: { posX: 0, posY: 1-0.14589803375031543, width: 1, height: 0.14589803375031543 }
-        // , imgSize: {posX: 0, posY: 0, width: 1, height: 1}
+        , imgSize: {posX: 0, posY: 0, width: 1, height: 1}
       }
     ];
     const ui = { posX: 23 / 32.0, posY: 0.75, width: 4 / 16.0, height: 3 / 16.0 };
@@ -253,7 +245,6 @@
     addListener("language", "change", changeLanguage);
 
     function mainGameLoop() {
-      console.log("mainGameLoop: gameState: " + gameState.room);
       drawRoom(gameState, mainCanvas);
     }
 
@@ -414,8 +405,6 @@
         if (!area.isBackground) {
           if (gameState.room === area.room) {
             if (isInside(xCoef, yCoef, area.size)) {
-              console.log("detected inside area, gamestate: ");
-              console.log(gameState);
               anyPointing = area;
             }
           }
