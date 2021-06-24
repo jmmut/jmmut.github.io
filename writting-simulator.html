@@ -78,6 +78,9 @@
     <canvas id="mainCanvas" width="10" height="10" style="border:1px solid #777777;">
       Your browser does not support the canvas element.
     </canvas>
+    <div>
+      <span id="message_span"></span>
+    </div>
   </div>
   <canvas id="writingPage" width="10" height="10" style="display: none; border:1px solid #777777;">
     Your browser does not support the canvas element.
@@ -196,12 +199,24 @@
         english: {
           language: "Language: ", inspiration: "Inspiration: ", progress: "Progress: ", pages: "Pages: ",
           credits: "Credits", programming: "Programming: ", art: "Art: ", design: "Design: ",
-          play: "Play", menu: "Main menu"
+          play: "Play", menu: "Main menu",
+          messages: {
+            0: "",
+            1: "What are my sources of inspiration?",
+            2: "Am I enjoying this?",
+            "ending": "I'd rather be doing something else, but what?"
+          }
         },
         spanish: {
           language: "Idioma: ", inspiration: "Inspiración: ", progress: "Progreso: ", pages: "Páginas: ",
           credits: "Créditos", programming: "Programación: ", art: "Arte: ", design: "Diseño: ",
-          play: "Jugar", menu: "Menú principal"
+          play: "Jugar", menu: "Menú principal",
+          messages: {
+            0: "",
+            1: "¿Cuáles son mis fuentes de inspiración?",
+            2: "¿Estoy disfrutando esto?",
+            "ending": "Preferiría estar haciendo otras cosas, pero ¿cuáles?"
+          }
         }
       }
     };
@@ -240,12 +255,16 @@
       document.getElementById("credits_programming").innerText = languages.selected.programming;
       document.getElementById("credits_art").innerText = languages.selected.art;
       document.getElementById("credits_design").innerText = languages.selected.design;
+      updateMessageOnPageCompleted(gameState.pages);
     };
     changeLanguage({ target: {value: "english" }})
     addListener("language", "change", changeLanguage);
 
     function mainGameLoop() {
       drawRoom(gameState, mainCanvas);
+      if (gameState.writing) {
+        mainCtx.drawImage(pageCanvas, pageSize.posX, pageSize.posY);
+      }
     }
 
     function onClick(event, gameState) {
@@ -259,15 +278,20 @@
       if (gameState.writing) {
         const pageComplete = drawPage(pageCanvas, pageSize, gameState.numberOfLetters);
         mainCtx.drawImage(pageCanvas, pageSize.posX, pageSize.posY);
-        gameState.progress += pageComplete ? 1 / 16.0 : 0;
         if (pageComplete) {
           gameState.numberOfLetters = 0;
           gameState.pages++;
           console.log("page completed");
+          updateMessageOnPageCompleted(gameState.pages);
         }
       }
     }
 
+    function updateMessageOnPageCompleted(numPages) {
+      span = document.getElementById("message_span");
+      const messages = languages.selected.messages;
+      span.innerText = (messages[numPages] !== undefined? messages[numPages] : messages["ending"]);
+    }
     /**
      * this function only changes game state, doesn't draw anything
      * @return whether we need a redraw.
