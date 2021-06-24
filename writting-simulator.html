@@ -227,6 +227,13 @@
       posX: mainCanvas.width / 16.0,
     };
     const pageCanvas = document.getElementById("writingPage");
+    const gameState = {
+    room: "mainRoom", areaHighlighted: null, areaChanged: false,
+      writing: false, inspiration: 0.5, progress: 0.0, pages: 0, numberOfLetters: 0
+    }
+    mainCanvas.addEventListener('click', event => { onClick(event, gameState); });
+    mainCanvas.addEventListener('mousemove', event => { onMouseMove(event, gameState); });
+
 
     test();
 
@@ -246,14 +253,7 @@
     addListener("language", "change", changeLanguage);
 
     function mainGameLoop() {
-      // the game state will change, so this shouldn't be declared as global
-      const gameState = {
-        room: "mainRoom", areaHighlighted: null, areaChanged: false,
-        writing: false, inspiration: 0.5, progress: 0.0, pages: 0, numberOfLetters: 0
-      }
-      mainCanvas.addEventListener('click', event => { onClick(event, gameState); });
-      mainCanvas.addEventListener('mousemove', event => { onMouseMove(event, gameState); });
-
+      console.log("mainGameLoop: gameState: " + gameState.room);
       drawRoom(gameState, mainCanvas);
     }
 
@@ -414,6 +414,8 @@
         if (!area.isBackground) {
           if (gameState.room === area.room) {
             if (isInside(xCoef, yCoef, area.size)) {
+              console.log("detected inside area, gamestate: ");
+              console.log(gameState);
               anyPointing = area;
             }
           }
