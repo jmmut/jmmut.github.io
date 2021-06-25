@@ -145,12 +145,16 @@
       let taskTable = document.createElement("table");
       taskTable.classList.add("task_table");
       taskNameRow = taskTable.insertRow(-1);
-      taskNameRow.innerHTML = "Task " + (index +1);
+      taskNameRow.innerHTML = getTaskHumanName(index +1);
 
       taskActionsRow = taskTable.insertRow(-1);
       actionsCell = taskActionsRow.insertCell(-1);
       actionsCell.appendChild(createActionsTable(index));
       return taskTable;
+    }
+
+    function getTaskHumanName(num) {
+      return "Task " + ({1: "A", 2: "B", 3: "C", 4: "D", 5: "E"}[num]);
     }
 
     function createActionsTable(index) {
@@ -322,9 +326,9 @@
 
         let row = document.createElement("li");
         if (task.type === "refactor") {
-          row.innerText = "Refactored task " + (task_id +1) + ": +" + (task.refactor_cost + total_penalization) + " days";
+          row.innerText = "Refactored " + getTaskHumanName(task_id +1) + ": +" + (task.refactor_cost + total_penalization) + " days";
         } else {
-          row.innerText = "Task " + (task_id + 1) + " done " + task.type + ": +" + (task.task_cost + total_penalization) + " days";
+          row.innerText = getTaskHumanName(task_id + 1) + " done " + task.type + ": +" + (task.task_cost + total_penalization) + " days";
         }
 
         timeline_table.appendChild(row);
