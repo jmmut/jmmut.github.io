@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html lang="es">
+
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8">
+  <title>Automatic argument</title>
+  <link rel="icon" href="data:,"> <!-- don't ask for favicon -->
+  <style>
+    div,
+    p,
+    button {
+      font-size: 20px;
+      text-align: center;
+      margin-left: 20%;
+      margin-right: 20%;
+    }
+    .question {
+      margin-left: 0%;
+      margin-right: 0%;
+    }
+    label, li {
+      font-size: 15px;
+    }
+
+    body {
+      background-color: #bbbbbb;
+      color: #000000;
+    }
+    
+  </style>
+</head>
+
+<body>
+  <div id="explanation_div">
+    <h2>
+      Let's argue.
+    </h2>
+  </div>
+  <div id=questions>
+  </div>
+
+
+  <script>
+    const graph = {
+      "initial": {question: "Can computers (AI or other types of programs) make art?", answers: [
+        {answer: "Yes", jump: "end_agree"},
+        {answer: "No", jump: "no_art"},
+      ]},
+      "end_agree": {question: "I agree.", answers: []},
+      "end_disagree": {question: "I don't agree.", answers: []},
+      "no_art": {question: "Why?", answers: [
+        {answer: "Computers can not have creativity", jump: "end_wrong"},
+        {answer: "Computers can not have motivation", jump: "end_disagree"},
+      ]},
+      "end_wrong": {question: "That's wrong", answers: []}
+    };
+    function get_question(id) {
+      return graph[id].question;
+    }
+    function get_answers(id) {
+      return graph[id].answers;
+    }
+
+    add_question("initial", document.getElementById("questions"));
+    
+    function add_question(id, parent) {
+      const question = parent.appendChild(document.createElement("div"));
+      question.className = "question";
+      question.appendChild(document.createElement('p')).innerText = get_question(id);
+
+      get_answers(id).forEach(({answer, jump}) => {
+        add_radio_to(question, id, answer, (event) => {
+          remove_later_questions(question);
+          add_question(jump, question);
+        });
+      });
+    }
+
+    function remove_later_questions(question) {
+      Array.from(question.children).forEach(element => {
+        if (element.className === "question") {
+          element.remove();
+        }
+      });
+    }
+
+    function add_radio_to(parent, radios_id, text, onClick) {
+      alternative = parent.appendChild(document.createElement("div"))
+      input = alternative.appendChild(document.createElement("input"));
+      input.type = "radio";
+      input.name = radios_id;
+      input.id = text;
+      input.value = text;
+      input.addEventListener("change", onClick);
+
+      const label = alternative.appendChild(document.createElement("label"));
+      label.htmlFor = text; // pointing to input.id
+      label.innerText = text;
+      label.addEventListener("change", onClick);
+    }
+    
+  </script>
+</body>
