@@ -10,19 +10,25 @@
     div,
     p,
     button {
-      font-size: 20px;
-      text-align: center;
-      margin-left: 20%;
-      margin-right: 20%;
+      font-size: 15px;
+      text-align: left;
+      margin-left: 15%;
+      margin-right: 15%;
     }
     .question {
       margin-left: 0%;
       margin-right: 0%;
     }
+    .answer {
+      margin-left: 20%;
+      margin-right: 20%;
+    }
     label, li {
       font-size: 15px;
     }
-
+    h2 {
+      text-align: center;
+    }
     body {
       background-color: #bbbbbb;
       color: #000000;
@@ -50,31 +56,78 @@
       "end_agree": {question: "I agree.", answers: []},
       "end_disagree": {question: "I don't agree.", answers: []},
       "no_art": {question: "Why?", answers: [
-        {answer: "Computers can not have creativity", jump: "end_wrong"},
-        {answer: "Computers can not have motivation", jump: "end_disagree"},
+        {answer: "Computers can not have creativity, and art requires novelty", jump: "no_creativity"},
+        {answer: "Computers can not have emotions, and art requires expression", jump: "no_emotions"},
+        {answer: "Computers can not have conscience, and art requires communication", jump: "no_conscience"},
       ]},
-      "end_wrong": {question: "That's wrong", answers: []}
+      "no_creativity": {question: "Why not? How do you define creativity?", answers: [
+        {answer: "Being able to create new things", jump: "create"},
+        {answer: "Being able to mix existing things in a new way", jump: "original_mix"},
+        {answer: "Being able to assess how valuable a given discovery is", jump: "assess"},
+        {answer: "Something else", jump: "something_else"},
+      ]},
+      "create": {
+        question: "Technically, humans can not create new things from nothing, either. We just can rearrange existing things as parts of another thing. Notes in a song, metal parts in a bike, particles in an atom, you name it.", answers: []
+      },
+      "original_mix": {question: "Do you know about <a href='https://www.youtube.com/watch?v=JNrXgpSEEIE'>'Lee Sedol vs AlphaGo, Match 2, move 37'</a>? In summary, <a href='https://en.wikipedia.org/wiki/Go_(game)'>Go</a> is a board game that people have been studying for millenia. In that match, AlphaGo (an AI) did a move so advanced that not even the top players in the world expected. Lee Sedol won Match 5, and that's the last time a human could beat AlphaGo. AlphaGo winning Match 2 was an example of how a program used a new combination of moves that no human taught it explicitly, so programs can be creative.", answers: [
+        {answer: "Well, ok, computers might make art in the future", jump: "end_agree"},
+        {answer: "That doesn't count", jump: "something_else"}
+      ]},
+      "assess": {question: "The hard part of assigning more or less value to a thing is just having your goals correctly defined. If you find a random website that helps you with your work, you just measured the utility of the website for one of your goals. This is a mechanic evaluation and has been programmed many times by many people, just not with all human goals yet.", answers: [
+        {answer: "Then, computers won't be creative until they can have all the goals humans have.", jump: "compare_with_animals"},
+        {answer: "Then, computers won't be creative until they can have incompletely defined goals.", jump: "undefined_goals"},
+      ]},
+      "compare_with_animals": {question: "Even assuming that human goals are not programmable (although I think it's possible, it's just complicated because there's no consensus even among humans), requiring computers to behave exactly as humans is too antropocentric. Animals don't have the same goals as humans but we still say they are creative (like <a href='https://www.youtube.com/watch?v=BGPGknpq3e0'>crows</a>). The same goes for programs that have a set of goals and can estimate the value of a thing in terms of utility for any of those goals.", answers: [
+        {answer: "Well, ok, computers might make art in the future", jump: "end_agree"},
+        {answer: "That doesn't count", jump: "something_else"}
+      ]},
+      "undefined_goals": {question: "It's possible to program AIs without defining goals explicitly. For example, reinforcement learning just requires a sense of 'this is better' or 'this is worse'. As another example, when we want to classify things based on an intuitive sense of similarity, classification algorithms are usually able to generate the expected classification by exploiting the underlying mathematical properties of the data.", answers: [
+        {answer: "Well, ok, computers might make art in the future", jump: "end_agree"},
+        {answer: "That doesn't count", jump: "something_else"}
+      ]},
+      "no_emotions": {question: "Why not? How do you define emotions?", answers: [
+        {answer: "A global mental state that may affect any other mental operation. Like, you will react differently to the same stimulus if you are angry or happy", jump: "programmable_emotions"},
+        {answer: "Other definition", jump: "something_else"}
+      ]},
+      "programmable_emotions": {question: "What makes you think that can't be programmed? <a href='https://www.youtube.com/watch?v=WnKsWxV0GZE&list=PLmoetAbeD0ELbGXmrS8WFDXI7mCQ2a-WW&index=1'>This</a> is a proof of concept of bots with very simple emotional states like 'pain' or 'hunger' that affect their behaviour. They are not intelligent, but they do have (simple) emotions.", answers: [
+        {answer: "Well, ok, computers might make art in the future", jump: "end_agree"},
+        {answer: "That doesn't count", jump: "something_else"}
+      ]},
+      "no_conscience": {question: "I agree that we can't call computers conscious until we understand better what that means, but for the same reason I think it's unfair to say both 'computers are not conscious' and 'humans are conscious'. We have no way to disproof solipsism for now. And when we have a solid definition of consciousness and we can prove that humans are conscious, then we'll be able to engineer programs that meet the criteria.", answers: [
+        {answer: "Not if consciousness depends on the biological substrate.", jump: "functionalism"}
+      ]},
+      "functionalism": {question: "My opinion is that the hardware doesn't matter, just the function it performs, but even if I am wrong, it's not impossible to build a computer with the minimal biocomponents needed for consciousness, and build the rest with regular hardware.", answers: [
+        {answer: "Well, ok, computers might make art in the future", jump: "end_agree"},
+        {answer: "That doesn't count", jump: "something_else"}
+      ]},
+      "": {question: "This path is unfinished", answers: []},
+      "something_else": {question: "I haven't prepared this path. Feel free to open an issue <a href='https://github.com/jmmut/jmmut.github.io/issues'>in the github repo</a> to add your point.", answers: []},
     };
+
     function get_question(id) {
-      return graph[id].question;
+      return graph[id]?.question;
     }
     function get_answers(id) {
-      return graph[id].answers;
+      return graph[id]?.answers;
     }
 
     add_question("initial", document.getElementById("questions"));
     
     function add_question(id, parent) {
-      const question = parent.appendChild(document.createElement("div"));
-      question.className = "question";
-      question.appendChild(document.createElement('p')).innerText = get_question(id);
-
-      get_answers(id).forEach(({answer, jump}) => {
-        add_radio_to(question, id, answer, (event) => {
-          remove_later_questions(question);
-          add_question(jump, question);
+      answers = get_answers(id);
+      if (answers === undefined) {
+        console.log("broken jump to id: " + id);
+      } else {
+        const question = parent.appendChild(document.createElement("div"));
+        question.className = "question";
+        question.appendChild(document.createElement('p')).innerHTML = get_question(id);
+        answers.forEach(({answer, jump}) => {
+          add_radio_to(question, id, answer, (event) => {
+            remove_later_questions(question);
+            add_question(jump, question);
+          });
         });
-      });
+      }
     }
 
     function remove_later_questions(question) {
@@ -86,7 +139,8 @@
     }
 
     function add_radio_to(parent, radios_id, text, onClick) {
-      alternative = parent.appendChild(document.createElement("div"))
+      alternative = parent.appendChild(document.createElement("div"));
+      alternative.className = "answer"
       input = alternative.appendChild(document.createElement("input"));
       input.type = "radio";
       input.name = radios_id;
@@ -96,7 +150,7 @@
 
       const label = alternative.appendChild(document.createElement("label"));
       label.htmlFor = text; // pointing to input.id
-      label.innerText = text;
+      label.innerHTML = text;
       label.addEventListener("change", onClick);
     }
     
