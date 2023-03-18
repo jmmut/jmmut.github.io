@@ -299,6 +299,6 @@ Faster Than Lime also added a cool feature about watching the folder and reloadi
 recompiled, and I totally stole the idea.
 
 You can [read the code](https://github.com/jmmut/bioengineer/blob/d02bf929435a7552fa31d664d9c8a3350a7e1a4e/src/bin/hot_reload_bioengineer.rs)
-if you are really interested in how it's done in a more non-trivial game. I decorated the calls for
+if you are really interested in how it's done in a less trivial game. I decorated the calls for
 drawing textures and UI too.
 
