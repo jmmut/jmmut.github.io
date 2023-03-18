@@ -193,6 +193,7 @@ macroquad = "=0.3.16"
 ```
 
 ```rust
+// hot-reload-macroquad-bin/src/main.rs
 use macroquad::prelude::*;
 use std::error::Error;
 use std::ptr::null;
