@@ -36,7 +36,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 ```
 
-```
+```rust
 // hot-reload-rust-lib/src/lib.rs
 #[no_mangle]
 pub extern "C" fn multiply(n: i64) -> i64 {
@@ -57,7 +57,7 @@ name = "hot-reload-rust-bin"
 version = "0.1.0"
 edition = "2021"
 ```
-```
+```rust
 // hot-reload-rust-bin/src/main.rs
 use std::env::current_dir;
 use std::error::Error;
@@ -159,7 +159,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 ```
 
-```
+```rust
 // hot-reload-macroquad-lib/src/lib.rs
 pub trait Drawer {
     fn draw_text(&self, text: &str, x: f32, y: f32, font_size: f32);
@@ -192,7 +192,7 @@ edition = "2021"
 macroquad = "=0.3.16"
 ```
 
-```
+```rust
 use macroquad::prelude::*;
 use std::error::Error;
 use std::ptr::null;
