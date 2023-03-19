@@ -20,6 +20,13 @@ added hot-reloading to the Macroquad game I'm writing,
 [Bioengineer](https://jmmut.itch.io/bioengineer). The idea is not new, and I'm kind of embarrassed I
 didn't try this before.
 
+<div class="mydiv">
+<iframe
+src="https://www.youtube.com/embed/W0IwfbrdCC4"
+frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</div>
+
 <!--more-->
 
 ### The basic hot-reloading idea
@@ -302,3 +309,4 @@ You can [read the code](https://github.com/jmmut/bioengineer/blob/d02bf929435a75
 if you are really interested in how it's done in a less trivial game. I decorated the calls for
 drawing textures and UI too.
 
+The video at the top of this article is how it looks to hot-reload Bioengineer.
