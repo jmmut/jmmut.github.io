@@ -12,6 +12,8 @@ From afar, the Temple of the Iron Mines dispatched Borrow, a skilled disciple,
 who swiftly immersed in the sacred art of inscription upon arrival at the Temple
 of the Greater Sunda Islands.
 
+<!--more-->
+
 Weeks passed, and amidst the diligent toil, a fellow disciple named Stream
 beheld the scriptures, perceiving a deviation from the revered path. Stream
 resolved to present the matter to a venerable elder.
