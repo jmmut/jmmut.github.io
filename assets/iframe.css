@@ -13,3 +13,9 @@ iframe {
 code {
   overflow: scroll;
 }
+
+.timeline_box {
+  border: 2px solid #0090ff;
+  padding: 30px 40px 20px;
+  margin: 20px 0;
+}
