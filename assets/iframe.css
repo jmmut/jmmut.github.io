@@ -1,3 +1,4 @@
+/* this and the iframe is for the embedded youtube divs */
 .mydiv {
   width: 100%;
   padding-bottom: 57%;
@@ -14,8 +15,45 @@ code {
   overflow: scroll;
 }
 
+/* this is to put boxes in the timeline view. see index.md */
 .timeline_box {
   border: 2px solid #0090ff;
   padding: 30px 40px 20px;
   margin: 20px 0;
+  border-radius: 3px;
+}
+
+/* collapsibles are like jira expands: show or hide part of the content */
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  margin: 0 0 0 0;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: inherit;
+  border-radius: 3px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible_content {
+  padding: 20px 30px 20px 30px;
+  display: none;
+  overflow: hidden;
+  /*background-color: #f1f1f1;*/
+  /*background-color: #d1d1d1;*/
+
+  /*border: 2px 0 2px 0 solid #777;*/
+  margin: -5px 0;
+  border-radius: 0 0 3px 3px;
+  border-bottom: 2px solid;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-color: #aaa;
 }
