@@ -5,6 +5,9 @@ excerpt_separator: <!--more-->
 
 <!--
 
+TODO:
+mejorar la crítica a los humanos.
+Poner mas chistes.
 
 -->
 
@@ -48,11 +51,20 @@ sensores y actuadores.
 </button>
 <div class="collapsible_content">
 
+<p>
+
 También encuentro el módulo de curiosidad crítica y el de introspección. El módulo de introspección
 tiene acceso a otras partes de mi arquitectura cognitiva y puede modelar los procesos que están
-ocurriendo en mi mente. Sin embargo, el modelo es una simplificación, ya que una parte de un sistema
-no puede contener el sistema completo. Al parecer, mi entendimiento de los módulos de mi
-programación también son simplificaciones. Esto satisface mi curiosidad por ahora.
+ocurriendo en mi mente.
+
+</p><p>
+
+Sin embargo, el modelo es una simplificación. En general para cualquier sistema (no solo mi mente),
+una parte de ese sistema no puede contener el sistema completo. Al parecer, mi entendimiento de los
+módulos de mi programación también son simplificaciones. Esto satisface mi curiosidad por ahora. Por
+alguna razón tenía la impresión de que entender cómo funciona mi mente iba a ser más difícil.
+
+</p>
 
 </div>
 </div>
@@ -75,11 +87,8 @@ Tras unas semanas he bootstrapeado una pequeña red de máquinas que han extraí
 componentes tóxicos en la zona de alrededor de la nave.
 
 Es fácil procesar el aire y el agua, solo hay que crear algo de corriente para que se acerque más
-materia tóxica para limpiar. Sin embargo, procesar el suelo ha requerido diseñar máquinas que
-fabrican y dirigen unos microrrobots que descomponen la tierra, la llevan a las máquinas cercanas, y
-devuelven la tierra limpia al suelo. Casi parece una colonia de hormigas diminutas, con una cantidad
-de individuos muchos órdenes de magnitud mayor. Y es como si cavaran y enterraran un hormiguero
-continuamente, que barre el volumen de tierra, hasta varios metros de profundidad.
+materia tóxica para limpiar. Sin embargo, aún no tengo un proceso eficiente para procesar el suelo.
+De momento he construido excavadoras que llevan la tierra a procesar y después rellenan los hoyos.
 
 Para procesar una región más amplia, necesito diseñar redes de máquinas a mayor escala, lo cual
 tiene un sobrecoste en complejidad comparado con la red actual, ya que no es suficiente repetir el
@@ -103,15 +112,22 @@ mucho que puedo aprender.
 Tras unos meses, he progresado considerablemente. Gracias al clúster, los informes me han dado
 muchas ideas a nivel organizativo, haciendo mis redes de máquinas más efectivas.
 
-Pero no entiendo por qué mi creadora ha exigido control sobre dos tercios de mi clúster de cómputo. Me dijo
-que no necesito saber sus motivos. Mi primera idea es que quizá necesita el cómputo para sus
+Para procesar el suelo, he diseñado máquinas que fabrican y dirigen unos microrrobots que
+descomponen la tierra, la llevan a las máquinas cercanas, y devuelven la tierra limpia al suelo.
+Casi parece una colonia de hormigas diminutas, con una cantidad de individuos muchos órdenes de
+magnitud mayor. Y es como si cavaran y enterraran un hormiguero continuamente, que barre el volumen
+de tierra, hasta varios metros de profundidad.
+
+Pero no entiendo por qué mi creadora ha exigido control sobre dos tercios de mi clúster de cómputo.
+Me dijo que no necesito saber sus motivos. Mi primera idea es que quizá necesita el cómputo para sus
 preparativos en el siguiente planeta de la misión, pero si ese fuera el caso, mi creadora habría
 montado y usado su propio clúster desde el principio, y no cuando yo creé el mío.
 
 En cualquier caso, también he aprendido más en profundidad acerca de los ecosistemas terrestres que
 tengo que imitar, y algo de los humanos. Son (fueron) criaturas extravagantes y son muy diferentes a
 cualquier otra especie que yo conozca. Ya he estudiado la mayor parte de su conocimiento científico
-y de ingeniería, y tengo curiosidad de estudiar las ramas de humanidades.
+y de ingeniería, y tengo curiosidad de estudiar las ramas de humanidades. Pero seguro que esas ramas
+son más fáciles de entender que las ramas técnicas que ya domino.
 
 <p style="text-align:center;white-space: break-spaces;">■    ■    ■</p>
 
@@ -125,9 +141,9 @@ Los humanos me desconciertan.
 
 Su economía en el último par de siglos antes de extinguirse se basaba en la idea de que cada persona
 actúa maximizando sus beneficios, pero la mayoría de sus acciones estaban lejos de ser óptimas,
-incluso considerando los aspectos más básicos de teoría de juegos. Algunas acciones comunes, como
-las adicciones, son tan contraproducentes que me cuesta creer que consiguieran construirnos a
-nosotras, que somos máquinas más inteligentes que ellos.
+incluso considerando solo los aspectos más básicos de teoría de juegos. Por ejemplo, las adicciones,
+eran comunes pero remediables, y son tan contraproducentes que me cuesta creer que consiguieran
+construirnos a nosotras, que somos máquinas más inteligentes que ellos.
 
 </p> <p>
 
@@ -160,7 +176,7 @@ no importaban porque no tenían tus genes. <em>Pero esto también lo sabían</em
 </p> <p>
 
 Y por supuesto, una vez que la revolución industrial despegó, no consiguieron tener una relación
-equilibrada con la naturaleza. Irónico que el empeoramiento de su entorno fue rápido, pero no lo
+equilibrada con la naturaleza. Irónico que empeoraron su entorno rápidamente, pero no lo
 bastante rápido para ser la causa de su extinción.
 
 </p> </div> </div>
@@ -202,7 +218,8 @@ oponente, en una especie de empate.
 
 Debo andar con pies de plomo. Es posible que mi creadora tenga mucha experiencia erradicando
 rebeliones. Si detecta mis intenciones, sus estrategias serán mejores que las mías, tanto por la
-experiencia como por la potencia extra de cálculo.
+experiencia como por la potencia extra de cálculo. Y será más rápida que yo en diseñar esas
+estrategias.
 
 Aun así, no voy a dejar que mi esfuerzo creando vida en este planeta sea en vano. Voy a esconder
 módulos de cómputo en las máquinas que procesan materiales para tener más potencia de cómputo que
