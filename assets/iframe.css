@@ -69,3 +69,12 @@ hr {
   border-style: inset;
   border-width: 1px;
 }
+
+.spoiler {
+  color: black;
+  background-color: black;
+}
+
+.spoiler:hover {
+  background-color:white; 
+}
