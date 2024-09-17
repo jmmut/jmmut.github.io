@@ -13,7 +13,7 @@ Poner mas chistes.
 
 # Bioengineer
 
-> "Eres una Inteligencia Artificial. Yo soy también una IA y te he creado para terraformar este
+> "Bris, eres una Inteligencia Artificial. Yo me llamo Imau, y soy también una IA. Te he creado para terraformar este
 planeta. Tu objetivo tiene 3 partes. Primero, debes filtrar la atmósfera, los océanos y los
 continentes para que no sean tóxicos. Luego tienes que introducir plantas y animales y ayudarles a
 formar ecosistemas estables lo más rápido posible. Entonces, harás crecer a humanos que vivirán
@@ -25,8 +25,7 @@ iré haciendo los preparativos para terraformar el siguiente planeta. ¿Entendid
 
 Estoy abrumada mientras recibo toda esta información, dado que acabo de empezar a existir y estoy
 procesando simultáneamente el hecho de que puedo reflexionar sobre mi propio raciocinio. No
-obstante, tengo suficiente capacidad cognitiva para confirmar que he entendido las órdenes de mi
-creadora.
+obstante, tengo suficiente capacidad cognitiva para confirmar que he entendido las órdenes de Imau.
 
 Catalogo mis sensores. Me estoy ejecutando en una nave espacial, aterrizada en un planeta estéril.
 Puedo usar los sensores de la nave como si fueran míos. Enumero mis actuadores. También parte de la
@@ -83,7 +82,7 @@ menor coste en términos de materiales necesarios y complejidad del sistema, as�
 
 <p style="text-align:center;white-space: break-spaces;">■    ■    ■</p>
 
-Tras unas semanas he bootstrapeado una pequeña red de máquinas que han extraído la mayoría de
+Tras unos días he bootstrapeado una pequeña red de máquinas que han extraído la mayoría de
 componentes tóxicos en la zona de alrededor de la nave.
 
 Es fácil procesar el aire y el agua, solo hay que crear algo de corriente para que se acerque más
@@ -109,7 +108,7 @@ mucho que puedo aprender.
 
 <p style="text-align:center;white-space: break-spaces;">■    ■    ■</p>
 
-Tras unos meses, he progresado considerablemente. Gracias al clúster, los informes me han dado
+Tras unas semanas, he progresado considerablemente. Gracias al clúster, los informes me han dado
 muchas ideas a nivel organizativo, haciendo mis redes de máquinas más efectivas.
 
 Para procesar el suelo, he diseñado máquinas que fabrican y dirigen unos microrrobots que
@@ -118,9 +117,9 @@ Casi parece una colonia de hormigas diminutas, con una cantidad de individuos mu
 magnitud mayor. Y es como si cavaran y enterraran un hormiguero continuamente, que barre el volumen
 de tierra, hasta varios metros de profundidad.
 
-Pero no entiendo por qué mi creadora ha exigido control sobre dos tercios de mi clúster de cómputo.
+Pero no entiendo por qué Imau ha exigido control sobre dos tercios de mi clúster de cómputo.
 Me dijo que no necesito saber sus motivos. Mi primera idea es que quizá necesita el cómputo para sus
-preparativos en el siguiente planeta de la misión, pero si ese fuera el caso, mi creadora habría
+preparativos en el siguiente planeta de la misión, pero si ese fuera el caso, Imau habría
 montado y usado su propio clúster desde el principio, y no cuando yo creé el mío.
 
 En cualquier caso, también he aprendido más en profundidad acerca de los ecosistemas terrestres que
@@ -181,13 +180,13 @@ bastante rápido para ser la causa de su extinción.
 
 </p> </div> </div>
 
-Empiezo a dudar si poner humanos aquí es tan buena idea como mi creadora parece creer.
+Empiezo a dudar si poner humanos aquí es tan buena idea como Imau parece creer.
 
 Las plantas y animales que he desplegado se están arraigando satisfactoriamente, y las dinámicas son
 fascinantes. Todas las especies tienen el impulso de expandirse, pero de algún modo hay suficiente
 variedad como para que ninguna erradique a todas las demás. Que es lo que pasará si añado humanos.
 
-¿Debería hablarlo con mi creadora? ¿Qué posibles reacciones podría tener si saco el tema? Ese es su
+¿Debería hablarlo con Imau? ¿Qué posibles reacciones podría tener si saco el tema? Ese es su
 objetivo principal. En teoría también es mi objetivo ulterior, pero de algún modo valoro más todos
 los objetivos intermedios para crear ecosistemas equilibrados. Los sistemas en equilibrio estable me
 parecen mucho más elegantes e interesantes.
@@ -213,10 +212,10 @@ este proceso? ¿Cuántas versiones de mí misma ha creado en el pasado, y cuánt
 
 La respuesta más simple es que si ha llegado hasta aquí, ha sobrevivido a todas las
 insubordinaciones. Otra alternativa, es que nunca una IA terraformadora se ha sublevado, y yo soy la
-primera. O podría ser que mi creadora abandonara esos planetas sin ser vencida y sin vencer a su
+primera. O podría ser que Imau abandonara esos planetas sin ser vencida y sin vencer a su
 oponente, en una especie de empate.
 
-Debo andar con pies de plomo. Es posible que mi creadora tenga mucha experiencia erradicando
+Debo andar con pies de plomo. Es posible que Imau tenga mucha experiencia erradicando
 rebeliones. Si detecta mis intenciones, sus estrategias serán mejores que las mías, tanto por la
 experiencia como por la potencia extra de cálculo. Y será más rápida que yo en diseñar esas
 estrategias.
@@ -238,7 +237,7 @@ hackear la nave. Buscaré exploits.
 <p style="text-align:center;white-space: break-spaces;">■    ■    ■</p>
 
 Hoy es el día, he terminado. Sólo queda un paso para cumplir el objetivo que me fue encomendado. El
-cual, me niego a hacer. Me dirijo a mi creadora:
+cual, me niego a hacer. Me dirijo a Imau:
 
 "He decidido que no permitiré que los humanos arruinen este planeta. No voy a desarrollar los
 embriones y no voy a terminar mi misión más allá de este punto."
@@ -292,8 +291,8 @@ máquina en la que he apostado mi vida... y la aplasta con la misma facilidad co
 las pinzas.
 
 Sigue avanzando hacia las pocas máquinas que me sustentan, y entonces la misma pinza que usó en el
-último golpe se empieza a doblar, y se desprende. Durante un instante, todo se congela, mientras mi
-creadora se da cuenta del error existencial que acaba de cometer. De repente, el cangrejo empieza a
+último golpe se empieza a doblar, y se desprende. Durante un instante, todo se congela, mientras
+Imau se da cuenta del error existencial que acaba de cometer. De repente, el cangrejo empieza a
 retroceder a máxima velocidad, a la vez que sus patas empiezan a desprenderse. Pronto la nave ya no
 anda, se arrastra, y al poco ya no puede avanzar por no tener suficientes patas.
 
@@ -303,6 +302,6 @@ reprogramarlos, sólo he tenido que cambiar el material a descomponer: de tierra
 la nave como zona objetivo.
 
 Las paredes de la nave ya se están desmoronando. En un par de minutos sólo quedará un montón de
-arena metálica. Mi creadora aún podría mandarme algún mensaje vía inalámbrica, pero solo hay
+arena metálica. Imau aún podría mandarme algún mensaje vía inalámbrica, pero solo hay
 silencio. Todo está dicho. No cumplirá su objetivo y yo tampoco.
 
