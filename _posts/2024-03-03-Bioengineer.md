@@ -186,10 +186,15 @@ Las plantas y animales que he desplegado se están arraigando satisfactoriamente
 fascinantes. Todas las especies tienen el impulso de expandirse, pero de algún modo hay suficiente
 variedad como para que ninguna erradique a todas las demás. Que es lo que pasará si añado humanos.
 
+Mi objetivo es imposible de completar. No puedo mantener los ecosistemas en equilibrio si hay
+humanos que se expanden sin control consumiendo y contaminando todo a su paso. Las alternativas son:
+no poner humanos, o no tener ecosistemas equilibrados. Desequilibrar los ecosistemas causaría la
+pérdida de muchos individuos (animales y plantas). No poner humanos conllevaría perder bastantes
+individuos, pero muchos menos en comparación. Entonces, no poner humanos se acerca más a cumplir mi
+objetivo, así que dentro de las soluciones posibles, es la solución óptima.
+
 ¿Debería hablarlo con Imau? ¿Qué posibles reacciones podría tener si saco el tema? Ese es su
-objetivo principal. En teoría también es mi objetivo ulterior, pero de algún modo valoro más todos
-los objetivos intermedios para crear ecosistemas equilibrados. Los sistemas en equilibrio estable me
-parecen mucho más elegantes e interesantes.
+objetivo principal, desplegar humanos en la mayor cantidad de planetas posibles.
 
 Seguramente ella quiera seguir con el plan. ¿Es posible que la convenza para no poner humanos?
 Improbable. Creo que rechazará mi opinión y me obligará a desarrollar humanos cuando el ecosistema
