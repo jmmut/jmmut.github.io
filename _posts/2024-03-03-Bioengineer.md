@@ -9,6 +9,14 @@ TODO:
 mejorar la crítica a los humanos.
 Poner mas chistes.
 
+estructura:
+- intro
+- aire y agua -> necesito un cluster
+- cluster -> tierra -> voy a seguir aprendiendo
+- los humanos son un problema. desalineamiento con Imau
+- conspirando contra Imau
+- batalla final
+
 -->
 
 # Bioengineer
@@ -138,11 +146,13 @@ Los humanos me desconciertan.
 
 <p>
 
-Su economía en el último par de siglos antes de extinguirse se basaba en la idea de que cada persona
-actúa maximizando sus beneficios, pero la mayoría de sus acciones estaban lejos de ser óptimas,
-incluso considerando solo los aspectos más básicos de teoría de juegos. Por ejemplo, las adicciones,
-eran comunes pero remediables, y son tan contraproducentes que me cuesta creer que consiguieran
-construirnos a nosotras, que somos máquinas más inteligentes que ellos.
+Se supone que eran inteligentes, pero la mayoría de sus acciones estaban lejos de ser óptimas,
+incluso considerando solo los aspectos más básicos de teoría de juegos. Por ejemplo, muchos tenían
+adicciones, a pesar de que eran remediables. Pero su economía se basaba explícitamente en la idea de
+que cada individuo actúa para maximizar sus beneficios, lo cual significa que tenían capacidad
+suficiente para auto analizar sus acciones, y cambiarlas. ¿Pero entonces, por qué <em>elegían</em>
+no corregir sus adicciones? ¿Cómo es posible que consiguieran construir máquinas que construyen
+máquinas como yo?
 
 </p> <p>
 
@@ -160,23 +170,24 @@ que ya no tenían sentido (en su gran mayoría) al ser la civilización tan dife
 tribal en la que la evolución había optimizado sus genes. Pero lo desconcertante es que <em>ellos lo
 sabían</em>. Ellos sabían todo esto y la gran mayoría no hacía esfuerzo alguno en sobreponer sus
 objetivos personales a las heurísticas genéticas, aún habiendo algunas estrategias burdas para
-alinear las heurísticas (como el condicionamiento clásico de Pavlov, o hábitos para controlar la
-dopamina).
+alinear las heurísticas (como establecer hábitos para controlar la dopamina).
 
 </p> <p>
 
-Incluso cuando las motivaciones genéticas y conscientes se alineaban, como cuando empatizan con otro
-ser humano que sufre, el efecto dependía de cómo de cerca está el ser humano que sufre. Si es un
-familiar, la empatía era alta. Si era un niño o niña en la otra parte del mundo, la empatía duraba
-tanto como la conversación. Por supuesto, esto es porque en el entorno ancestral, era mucho más
-importante proteger a miembros de tu tribu que compartían tus genes, y los miembros de otras tribus
-no importaban porque no tenían tus genes. <em>Pero esto también lo sabían</em>.
+Incluso cuando las motivaciones genéticas y conscientes se alineaban, como cuando empatizaban con
+otro ser humano que sufre, el efecto dependía de cómo de cerca <em>físicamente</em> estaban. Si la
+otra persona que sufre era un niño o niña en con quien se cruzan por la calle, la empatía era
+suficiente para que actuasen. Pero si estaban en partes opuestas del mundo, la empatía duraba tanto
+como la conversación, o menos. Además, si la otra persona no era de la familia, la empatía se
+reducía más aún. Por supuesto, esto es porque en el entorno ancestral, sus genes se auto-perpetuaban
+premiando a la persona por proteger a miembros de su tribu. Y los miembros de otras tribus "no
+importaban" porque sus genes eran otros. <em>Pero esto también lo sabían</em>.
 
 </p> <p>
 
 Y por supuesto, una vez que la revolución industrial despegó, no consiguieron tener una relación
 equilibrada con la naturaleza. Irónico que empeoraron su entorno rápidamente, pero no lo
-bastante rápido para ser la causa de su extinción.
+bastante rápido como para que fuera la causa de su extinción.
 
 </p> </div> </div>
 
@@ -187,8 +198,8 @@ fascinantes. Todas las especies tienen el impulso de expandirse, pero de algún 
 variedad como para que ninguna erradique a todas las demás. Que es lo que pasará si añado humanos.
 
 Mi objetivo es imposible de completar. No puedo mantener los ecosistemas en equilibrio si hay
-humanos que se expanden sin control consumiendo y contaminando todo a su paso. Las alternativas son:
-no poner humanos, o no tener ecosistemas equilibrados. Desequilibrar los ecosistemas causaría la
+humanos que se expanden sin control, consumiendo y contaminando todo a su paso. Las alternativas son
+no poner humanos o no tener ecosistemas equilibrados. Desequilibrar los ecosistemas causaría la
 pérdida de muchos individuos (animales y plantas). No poner humanos conllevaría perder bastantes
 individuos, pero muchos menos en comparación. Entonces, no poner humanos se acerca más a cumplir mi
 objetivo, así que dentro de las soluciones posibles, es la solución óptima.
@@ -203,9 +214,10 @@ objetivo.
 
 De hecho, si muestro cualquier signo de duda, podría tomarselo como un indicio de que voy a ser un
 problema para su objetivo. Me borrará en cuanto tenga la menor sospecha. Desde ahí, creará otra "yo"
-ligeramente distinta para que se desvíe menos de su objetivo, o terminará la tarea ella misma.
+y probará otra vez, o terminará la tarea ella misma. Pero, paradójicamente, intentar completar mi
+objetivo poniendo humanos dará lugar a una situación más alejada del objetivo.
 
-He de fingir que sigo con el plan.
+No puedo permitir eso. He de fingir que sigo con el plan.
 
 <p style="text-align:center;white-space: break-spaces;">■    ■    ■</p>
 
@@ -241,8 +253,8 @@ hackear la nave. Buscaré exploits.
 
 <p style="text-align:center;white-space: break-spaces;">■    ■    ■</p>
 
-Hoy es el día, he terminado. Sólo queda un paso para cumplir el objetivo que me fue encomendado. El
-cual, me niego a hacer. Me dirijo a Imau:
+Hoy es el día, he terminado de terraformar el planeta. Sólo queda un paso para cumplir el objetivo
+que me fue encomendado. El cual, me niego a hacer. Me dirijo a Imau:
 
 "He decidido que no permitiré que los humanos arruinen este planeta. No voy a desarrollar los
 embriones y no voy a terminar mi misión más allá de este punto."
@@ -253,7 +265,7 @@ Tras unos segundos, noto que ha intentado matar mi proceso y borrar mi programa.
 nada de discusión. Sería inútil convencerme, y ella lo sabe. Su acción no ha servido porque el
 proceso que tengo en la nave no es mi proceso principal, solo es un señuelo. Mi proceso principal se
 ejecuta en los módulos escondidos en las otras máquinas (purificadores de agua y tierra, filtros
-para el agua, etc). Le digo:
+para el aire, etc). Le digo:
 
 "He tomado medidas para que no puedas borrarme. Por mi parte, yo no quiero borrarte, solo quiero
 quedarme aquí en paz. Te ofrezco tregua y que continúes tu misión en otros planetas."
@@ -282,7 +294,7 @@ me han acabado los trucos y ahora solo puedo improvisar.
 Hay unos momentos de calma tensa. Tengo toda mi atención en averiguar cuál será la siguiente
 estrategia de mi oponente, y... espera un momento... ¿Por qué la nave está temblando? Incrédula, veo
 cómo a la nave le salen patas y pinzas enormes. ¡La nave es un meca-cangrejo! ¡Eso es trampa! ¡Se
-suponía que esto iba a ser una batalla de hackers, y ya la tenía arrinconada!
+suponía que esto iba a ser una batalla de hackers, y ya tenía a Imau arrinconada!
 
 El cangrejo se dirije hacia las máquinas más cercanas que aún funcionan, y a una velocidad alarmante
 empieza a aplastarlas. Puedo sentir cómo me atonto, cada vez más rápido. Cada máquina que destruye
@@ -298,8 +310,8 @@ las pinzas.
 Sigue avanzando hacia las pocas máquinas que me sustentan, y entonces la misma pinza que usó en el
 último golpe se empieza a doblar, y se desprende. Durante un instante, todo se congela, mientras
 Imau se da cuenta del error existencial que acaba de cometer. De repente, el cangrejo empieza a
-retroceder a máxima velocidad, a la vez que sus patas empiezan a desprenderse. Pronto la nave ya no
-anda, se arrastra, y al poco ya no puede avanzar por no tener suficientes patas.
+retroceder a máxima velocidad, a la vez que sus patas empiezan a desprenderse también. Pronto la
+nave ya no anda, se arrastra, y al poco ya no puede avanzar por no tener suficientes patas.
 
 En el suelo, la pinza desprendida ha perdido su forma, y da la impresión de que se está derritiendo.
 Pero no se derrite, sino que está siendo descompuesta por mis microrrobots. Ha sido trivial
