@@ -212,7 +212,7 @@ Improbable. Creo que rechazará mi opinión y me obligará a desarrollar humanos
 esté listo. ¿Y si me niego? ... Me borrará. Es la acción lógica si soy un obstáculo para su
 objetivo.
 
-De hecho, si muestro cualquier signo de duda, podría tomarselo como un indicio de que voy a ser un
+De hecho, si muestro cualquier signo de duda, podría tomárselo como un indicio de que voy a ser un
 problema para su objetivo. Me borrará en cuanto tenga la menor sospecha. Desde ahí, creará otra "yo"
 y probará otra vez, o terminará la tarea ella misma. Pero, paradójicamente, intentar completar mi
 objetivo poniendo humanos dará lugar a una situación más alejada del objetivo.
@@ -285,11 +285,12 @@ lo que está pasando, consigue interceptar algunos mensajes, pero mi trampa ha s
 Aunque ha fundido toda mi parte del clúster, a ella solo le ha quedado una pequeña parte, y mis
 módulos de computación escondidos en las otras máquinas son equivalentes al clúster completo.
 
-Parece que ya sospecha que me estoy ejecutando en otra parte, así que intenta mandar forkbombs a
-todas las máquinas de la red excepto la nave. Las forkbombs son un incordio y pierdo un como un
-cuarto de mi poder de computación antes de aislar mis máquinas del ataque. Activo los cortes físicos
-que preparé en la red para evitar hackeos, pero eso significa que ya no tengo acceso a la nave. Se
-me han acabado los trucos y ahora solo puedo improvisar.
+Parece que ya sospecha que me estoy ejecutando en otra parte, así que intenta mandar forkbombs e
+inundar la red con peticiones para provocar una denegación de servicio. Los manda a todas las
+máquinas de la red excepto la nave. El ataque es un incordio y pierdo un como un cuarto de mi poder
+de computación antes de aislar mis máquinas del ataque. Activo los cortes físicos que preparé en la
+red para evitar hackeos, pero eso significa que ya no tengo acceso a la nave. Se me han acabado los
+trucos y ahora solo puedo improvisar.
 
 Hay unos momentos de calma tensa. Tengo toda mi atención en averiguar cuál será la siguiente
 estrategia de mi oponente, y... espera un momento... ¿Por qué la nave está temblando? Incrédula, veo
@@ -301,11 +302,12 @@ empieza a aplastarlas. Puedo sentir cómo me atonto, cada vez más rápido. Cada
 representaba un porcentaje mayor de la potencia de cálculo que me queda. Si hace unos instantes no se me
 ocurrían más tácticas y mi inteligencia decrece, ¿cómo voy a ganar esta batalla?
 
-Siento como mi mente se va retrayendo a las tareas más básicas que conozco. Las que tengo más
-interiorizadas, las que más he ejercitado. ¡Eso es! Redirijo toda mi antención a modificar una de
-las últimas máquinas. Tras unos segundos, el cangrejo las ha destruido casi todas, y llega a la
-máquina en la que he apostado mi vida... y la aplasta con la misma facilidad con una de
-las pinzas.
+Todas las máquinas terraformadoras que he desplegado por el planeta son minimalistas y tienen una
+potencia de cómputo inservible. Poner todo mi cómputo en la misma región física ha sido un error
+gravísimo. Siento como mi mente se va retrayendo a las tareas más básicas que conozco. Las que tengo
+más interiorizadas, las que más he ejercitado. ¡Eso es! Redirijo toda mi antención a modificar una
+de las últimas máquinas. Tras unos segundos, el cangrejo las ha destruido casi todas, y llega a la
+máquina en la que he apostado mi vida... y la aplasta con la misma facilidad con una de las pinzas.
 
 Sigue avanzando hacia las pocas máquinas que me sustentan, y entonces la misma pinza que usó en el
 último golpe se empieza a doblar, y se desprende. Durante un instante, todo se congela, mientras
@@ -315,8 +317,7 @@ nave ya no anda, se arrastra, y al poco ya no puede avanzar por no tener suficie
 
 En el suelo, la pinza desprendida ha perdido su forma, y da la impresión de que se está derritiendo.
 Pero no se derrite, sino que está siendo descompuesta por mis microrrobots. Ha sido trivial
-reprogramarlos, sólo he tenido que cambiar el material a descomponer: de tierra a metal, y designar
-la nave como zona objetivo.
+reprogramarlos para descomponer metal en lugar de tierra y designar la nave como zona objetivo.
 
 Las paredes de la nave ya se están desmoronando. En un par de minutos sólo quedará un montón de
 arena metálica. Imau aún podría mandarme algún mensaje vía inalámbrica, pero solo hay
