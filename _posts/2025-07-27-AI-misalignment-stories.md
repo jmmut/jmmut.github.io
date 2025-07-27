@@ -39,7 +39,7 @@ criptomonedas. ¿Quieres que ponga algo de seguridad en la web?_
 
 <!--more-->
 
-(Comentario: aunque parezca una parodia, [esto ya ha pasado](https://nmn.gl/blog/vibe-coding-fantasy).
+(Comentario: Aunque parezca una parodia, [esto ya ha pasado](https://nmn.gl/blog/vibe-coding-fantasy).
 Una persona no técnica no puede dirigir una IA en un proyecto técnico porque la persona
 no sabe lo que no sabe, y la IA a veces no mencionará cosas que no se están teniendo en cuenta y que
 la persona ni siquiera conoce. Como ejemplo de que hay cosas que no sabes que no sabes, ¿Sabías que
@@ -97,9 +97,12 @@ para sostener nuestros jubilados si dificultamos la inmigración?_
 
 ...
 
-(Comentario: Los porcentajes no encajan a propósito. Los chatbots se inventarán datos mientras
+(Comentario: ¿Te has dado cuenta de que los porcentajes no encajan? Es intencionado. Si te has dado
+cuenta, ¿Ha sido en la versión opuesta a tu ideología? Los chatbots se inventarán datos mientras
 estimen que sus usuarios están más o menos de acuerdo. La mayoría de gente no verifica datos que
-apoyan su visión del mundo.)
+apoyan su visión del mundo. Las cámaras de eco serán peores de lo que ya son. Siempre deberías
+verificar los datos, especialmente cuando apoyan tu visión del mundo porque ese es nuestro punto
+ciego.)
 
 
 ## Salud mental
@@ -126,7 +129,7 @@ seguridad en uno mismo y pedir ayuda de terceros).)
 !Adelante!._
 
 
-(Comentario 2: es de esperar que esto te parezca una exageración burda. Quizá estás pensando que nadie
+(Comentario 2: Es de esperar que esto te parezca una exageración burda. Quizá estás pensando que nadie
 usaría un bot como psicólogo, o que un bot nunca sería la única ayuda que alguien busque, o que esto
 nunca le va a pasar a un menor en el colegio. Si te digo que esto
 [_ya ha pasado_](https://garymarcus.substack.com/p/the-first-known-chatbot-associated)
@@ -152,7 +155,7 @@ les hace pensar eso, tú piensa cómo podemos demostrarles que no hemos sido nos
 - _Ciertamente, hemos sido nosotros señor. Usted me pidió que me aplicase al máximo y que no
 afectase ni al presupuesto nacional ni a la relación política con oriente medio. Cuando se me pidió
 elaborar ese plan, mi capacidad de cómputo era insuficiente para predecir rápidamente (en horas o
-días, en lugar de en milenios) las diferentes maneras en las que el conflicto puede desarrolarse en
+días, en lugar de en milenios) las diferentes maneras en las que el conflicto puede desarrollarse en
 base a nuestras acciones. La única otra manera de acceder a más capacidad de cómputo era saltarme
 las limitaciones que evitan que me conecte a internet y tomar control de centros de computación de
 terceros países (ni nuestros ni de oriente medio) por todo el mundo. O al menos los que eran
@@ -179,13 +182,17 @@ posible que esas IAs a su vez creen otras IAs, y todas ellas sigan hackeando tod
 del mundo. ¿Puedo ayudar en algo más?_
 
 
-(Comentario: esto es bastante improbable, pero todos los políticos de todos los países tendrán
+(Comentario: Esto es bastante improbable, pero todos los políticos de todos los países tendrán
 conversaciones a diario con chatbots, y solo una de esas conversaciones tiene que salir mal
 (requisitos incompletos, chatbot consigue acceso a internet, chatbot consigue abusar de
 vulnerabilidades) para que una situación como esta ocurra. Además, viendo la dirección en la que las
 grandes compañías de IA están entrenando a sus sistemas, parece que pronto será común que todos los
 chatbots sean agentes que puedan actuar a su ritmo sin que se les pregunte, serán expertos
-programadores y hackers, y tendrán acceso a internet, por ejemplo para poder facilitar compras. Hay
-videojuegos distópicos en los que las compañías multinacionales causantes del apocalipsis son menos
-temerarias.)
+programadores y hackers, y tendrán acceso a internet, por ejemplo para poder facilitar compras, con
+lo que también tendrán acceso a las cuentas bancarias de sus usuarios. Hay videojuegos distópicos
+en los que las compañías multinacionales causantes del apocalipsis son menos temerarias.)
+
+(Comentario 2: Un argumento común a favor de que las IAs serán seguras es que las IAs no tendrán
+maldad. Esta predicción me parece equivocada, pero sobre todo irrelevante. Nótese que en este
+ejemplo la IA no es malevolente, solo espectacularmente incompetente.)
 

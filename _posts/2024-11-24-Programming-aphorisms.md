@@ -39,7 +39,7 @@ Almost none of these are original.
 
 - TDD is like communism: if it doesn't work for you, you're doing it wrong. Sadly, most people do it wrong.
 
-- When I was a novice, I was excited about clever code and tried to avoid messy code. Now I'm excited about
+- When I was a novice, I was excited about clever code and abstractions. Now I'm excited about
   simple code and try to avoid overengineering.
 
 - A layer shouldn't exist unless it provides some extra value that the layer below doesn't provide.
@@ -52,6 +52,6 @@ Almost none of these are original.
 - Your code from 3 years ago is probably horrible. This is good. It means you've improved. Unless
   you're just a fashion victim.
 
-- Temporary solutions tend to live longer than definitive solutions.
+- Temporary solutions tend to live as long as definitive solutions.
 
 
