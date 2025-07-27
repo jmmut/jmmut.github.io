@@ -287,7 +287,7 @@ módulos de computación escondidos en las otras máquinas son equivalentes al c
 
 Parece que ya sospecha que me estoy ejecutando en otra parte, así que intenta mandar forkbombs e
 inundar la red con peticiones para provocar una denegación de servicio. Los manda a todas las
-máquinas de la red excepto la nave. El ataque es un incordio y pierdo un como un cuarto de mi poder
+máquinas de la red excepto la nave. El ataque es un incordio y pierdo como un cuarto de mi poder
 de computación antes de aislar mis máquinas del ataque. Activo los cortes físicos que preparé en la
 red para evitar hackeos, pero eso significa que ya no tengo acceso a la nave. Se me han acabado los
 trucos y ahora solo puedo improvisar.
