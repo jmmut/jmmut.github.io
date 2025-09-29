@@ -1,0 +1,10 @@
+# The purpose of this "disallow everything" is to forbid entities from using my works for AI training.
+# This is my "opt-out" right according to the DSM directive, article 4(3) in https://eur-lex.europa.eu/eli/dir/2019/790/oj/eng
+# and applies to any entity that is registered or provides a service in the EU.
+# Informally, if you're scraping this website for non-commercial and non-massive-AI purposes,
+# I'm probably fine with that but this sentence is not a legally valid license for extracting my data,
+# and I still reserve all my rights just in case.
+
+User-agent: *
+Disallow: /
+
