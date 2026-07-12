@@ -1,3 +1,8 @@
+---
+tags: spanish tales
+excerpt_separator: <!--more-->
+---
+
 
 <!-- 
 Alex: Values ideas and novelty. Recharges energy being with people. Prefers cooperation and is afflicted by conflict and disagreement. Doesn't worry about uncertainty
@@ -33,6 +38,7 @@ Unos latidos y una eternidad después me doy cuenta de que es la alarma. La apag
 Me llevo las manos a la cara. Estaba durmiendo y era un sueño tan profundo que me he desorientado.
 Estiro los segundos, pero sé que tengo que ponerme en marcha.
 
+<!--more-->
 > Cariño, me levanto a desayunar.
 
 > _hmpff..._
