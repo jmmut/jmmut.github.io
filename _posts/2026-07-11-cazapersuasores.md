@@ -197,8 +197,8 @@ cara de Redentor. Cuando el bulto cayó al suelo, desde detrás de la puerta otr
 apuñaló con un destornillador, sin ver que Redentor estaba aún al otro lado de la puerta.
 
 Redentor sacó otra bomba y la activó. Imaginaba que habría marionetas esperándole pero había preferido gastar las bombas
-solo tras confirmarlo. Cogió de los hombros al que aún estaba agarrando la almádena y lo empujó a través de la puerta a
-la casa. Al que estaba en suelo, lo arrastró a la casa y cerró la puerta.
+solo tras confirmarlo. Cogió de los hombros al que aún estaba agarrando la almádena en trance y lo empujó a través de la
+puerta a la casa. Al que estaba en suelo, lo arrastró a la casa y cerró la puerta.
 
 En el garaje había 3 persuasores. Artefactos metálicos del tamaño de una vaca, pero sin patas y con ruedas. El de
 enmedio parecía el único que estaba completo. Cerrado, con la parte de arriba plana con cuadrados azules. Los otros dos
@@ -213,8 +213,8 @@ empezó a abrir paneles y arrancar piezas.
 ---Te arrepentirás de esto ---dijo el persuasor por una rendija en el lateral---.
 
 Redentor siguió desmontando, sin permitir que el persuasor le distrajese ni un instante. El portón se movía mucho y las
-bisagras empezaban a ceder. Redentor encontró el cable que buscaba, y lo arrancó. Saltó un chispazo y tras el estruendo
-todo quedó en silencio.
+bisagras empezaban a ceder. Redentor encontró el cable que buscaba, y lo arrancó. Saltó un chispazo terrible y tras el
+estruendo todo quedó en silencio.
 
 El portón ya no se movía y el persuasor ya no tenía ninguna luz encendida. Redentor siguió sacando piezas, rompiendo
 algunas de ellas. Después, hizo lo mismo con algunos componentes de los otros persuasores.
@@ -223,8 +223,8 @@ Cuando acabó, abrió el portón y observó al grupo de personas que hace un mom
 suelo, gimoteando por la peor migraña de sus vidas.
 
 Como siempre en estas situaciones, Redentor sentía una mezcla de sentimientos. Por un lado, empatía y deseo de
-protección. Por otro lado, sentimientos de desprecio y frustración. Estas personas se habían dejado convencer por el
-persuasor, y habían aceptado hacer el ritual de conexión que los había convertido en marionetas.
+protegerles. Por otro lado, desprecio y frustración. Estas personas se habían dejado convencer por el persuasor, y
+habían aceptado hacer el ritual de conexión que los había convertido en marionetas.
 
 Habían ignorado su escepticismo, aferrándose a las promesas idílicas del persuasor. Pusilánimes, descartaron la
 posibilidad de que pudieran valerse por sí mismos mejor que si confiaban en el persuasor.
