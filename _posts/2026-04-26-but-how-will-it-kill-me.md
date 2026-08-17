@@ -104,7 +104,7 @@ Igual que ellos, tú y todos los demás podemos usar los mismos agentes para def
 
 > _Te he dicho mil veces que el peligro por lo que hagan las demás personas es secundario.
 El principal problema es que no sabemos alinear las IAs.
-Legará un momento en el que dejen de ser incompetentes, y se pondrán en modo antagonista de la humanidad,
+Llegará un momento en el que dejen de ser incompetentes, y se pondrán en modo antagonista de la humanidad,
 pero cuando el desalineamiento sea evidente será demasiado tarde.
 De hecho el desalineamiento ya es evidente pero la gente elige no verlo,
 es un sesgo cognitivo básico, pensar que la consecuencia más deseable es la más probable: "Wishful thinking".
